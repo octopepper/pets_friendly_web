@@ -1,0 +1,50 @@
+[
+	{
+		"nom" : "Le cafe brun",
+		"description" : "DESCRIPTION",
+		"latitude" : 44.841751,
+		"longitude" : -0.572773
+	},
+	{
+		"nom" : "O7",
+		"description" : "DESCRIPTION",
+		"latitude" : 44.841021,
+		"longitude" : -0.57273
+	},
+	{
+		"nom" : "Sherlock Holmes Pub",
+		"description" : "DESCRIPTION",
+		"latitude" : 44.841919,
+		"longitude" : -0.581871
+	},
+	{
+		"nom" : "Cock and bull",
+		"description" : "",
+		"latitude" : 44.836776,
+		"longitude" : -0.575627
+	},
+	{
+		"nom" : "K baroque",
+		"description" : "",
+		"latitude" : 44.850819,
+		"longitude" : -0.570617
+	},
+	{
+		"nom" : "L'estacade",
+		"description" : "",
+		"latitude" : 44.845098,
+		"longitude" : -0.564609
+	},
+	{
+		"nom" : "Restaurant Fernand",
+		"description" : "",
+		"latitude" : 44.841812,
+		"longitude" : -0.568814
+	},
+	{
+		"nom" : "Le karma",
+		"description" : "",
+		"latitude" : 44.840108,
+		"longitude" : -0.571561
+	}
+]
