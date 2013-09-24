@@ -17,8 +17,8 @@
 <div class="start-search-block" id="start-block">
     <h1>Rechercher les lieux qui acceptent votre animal de compagnie.</h1>
     <div class="fields-search">
-        <input type="text" name="what" class="input-what" id="search-what" placeholder="Essayer avec restaurant ou hôtel">
-        <input type="text" name="where" class="input-where" id="search-where" placeholder="à Bordeaux, France">
+        <input type="text" name="what" class="input-what" id="search-what" value="" placeholder="Essayer avec restaurant ou hôtel">
+        <input type="text" name="where" class="input-where" id="search-where" value="" placeholder="à Bordeaux, France">
         <button class="btn" ng-click="search()">Lancer la recherche</button>
     </div>
 </div>
@@ -27,8 +27,8 @@
     <div class="result-search-column">
         <div class="result-controls">
             <form>
-                <input type="text" name="what" class="input-what" placeholder="Café">
-                <input type="text" name="where" class="input-where" placeholder="à Bordeaux, France">
+                <input type="text" name="what" id="search-what-inline" class="input-what" value="" placeholder="Café">
+                <input type="text" name="where" id="search-where-inline" class="input-where" value="" placeholder="à Bordeaux, France">
             </form>
             <div class="result-search-tags">
                 <span class="title-tags">Trier les résultats par :</span>

@@ -199,6 +199,43 @@ ul.content li {
 		bottom: 0;
 		background: white;
 
+		.icon-marker
+		{
+			background-image: url('../img/Sprite-markers.png');
+
+
+			&.bar{
+				background-position: 25px -11px;
+
+				&.active{
+					background-position: 0px 0px;
+					width: 40px;
+					height: 60px;
+				}
+			}
+			&.cafe{
+				background-position: 25px -81px;
+			}
+			&.restaurant{
+				background-position: 25px -151px;
+			}
+			&.hotel{
+				background-position: 25px -221px;
+			}
+			&.plage{
+				background-position: 25px -291px;
+			}
+			&.camping{
+				background-position: 25px -361px;
+			}
+			&.dogpark{
+				background-position: 25px -431px;
+			}
+			&.taxi{
+				background-position: 25px -501px;
+			}
+		}
+
 		.leaflet-control-layers {
 			display: none;
 	    }
