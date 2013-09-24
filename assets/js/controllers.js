@@ -37,6 +37,9 @@ function SearchCtrl($scope, $http)
 {
 	jQuery('.map-app').css('height',jQuery(window).height() - 110);
 
+	$scope.currentItem = {title : '', type: ''};
+	$scope.results = {};
+
 	$('#search-what-inline,#search-where-inline').on('keypress',function(e){
 		if(e.which == 13)
 		{
@@ -51,7 +54,7 @@ function SearchCtrl($scope, $http)
 		}
 	});
 
-	$scope.results = [];
+	
 
 	$scope.search = function(what,where){
 
@@ -64,7 +67,8 @@ function SearchCtrl($scope, $http)
 	        var i = 0;
 	        angular.forEach(data, function(value, key){
 	        	value.id = key;
-	        	$scope.results.push(value);
+	        	value.typeResult = 'featured';
+	        	$scope.results[key] = value;
 
 	            var classIcon = "";
 	            switch(value.type)
@@ -110,6 +114,7 @@ function SearchCtrl($scope, $http)
 					lat: parseFloat(value.latitude),
 					lng: parseFloat(value.longitude),
 					icon: $scope.map.div_icon,
+					id: key
         		};
         		marker.icon.options.className = 'icon-marker '+classIcon;
 
@@ -125,6 +130,23 @@ function SearchCtrl($scope, $http)
             	$(".result-search-scroll").mCustomScrollbar("update");
             });
 	    });
+	}
+
+	$scope.getDetails = function(id)
+	{
+		alert(id);
+	}
+
+	$scope.enterItem = function(id)
+	{
+		var result = $scope.results[id];
+		$scope.currentItem = {title : result.nom, type: result.description};
+	}
+
+	$scope.leaveItem = function(id)
+	{
+		var result = $scope.results[id];
+		$scope.currentItem = {title : '', type: ''};
 	}
 
 	function GetPosMarker(matrix)
@@ -158,5 +180,65 @@ function SearchCtrl($scope, $http)
 		$('.result-search-elmt[data-id='+data.markerName+"]").addClass('active');
 	});
 
-	$scope.sortResult = {};
+	$scope.sortResultValues = [
+		{
+			libelle : 'En avant',
+			active: true,
+			sortOrder: "ascending",
+           	sortAttribute: "nom"
+		},
+		{
+			libelle : 'Populaires',
+			active: true,
+			sortOrder: "ascending",
+           	sortAttribute: "nom"
+		},
+		{
+			libelle : 'Type',
+			active: false,
+			sortOrder: "ascending",
+           	sortAttribute: "nom"
+		},
+		{
+			libelle : 'Distance',
+			active: false,
+			sortOrder: "ascending",
+           	sortAttribute: "nom"
+		},
+		{
+			libelle : 'Ouvert',
+			active: false,
+			sortOrder: "ascending",
+           	sortAttribute: "nom"
+		},
+		{
+			libelle : 'Prix',
+			active: false,
+			sortOrder: "descending",
+           	sortAttribute: "nom"
+		}
+	];
+
+
+	$scope.sortResult = function(){
+		var sortData = [];
+		var sortvalues = $scope.sortResultValues;
+        
+        for(var i=0; i < sortvalues.length; i++) {
+        	if(sortvalues[i].active == true)
+        	{
+        		if(sortvalues[i].sortOrder === 'ascending') {
+	                sortData.push('+' + sortvalues[i].sortAttribute);
+	            } else {
+	                sortData.push('-' + sortvalues[i].sortAttribute);
+	            }
+        	}
+        }
+
+        return sortData;
+	}
+
+	$scope.$watch('sortResultValues', function(newModel, oldModel, $scope) {
+		$scope.sortResult();
+	}, true);
 }

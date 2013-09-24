@@ -127,6 +127,10 @@ ul,p {
 	}
 }
 
+.pointer{
+	cursor: pointer;
+}
+
 .clear {
 	clear: both;
 }
@@ -209,30 +213,56 @@ ul.content li {
 
 				&.active{
 					background-position: 0px 0px;
-					width: 40px;
-					height: 60px;
 				}
 			}
 			&.cafe{
 				background-position: 25px -81px;
+
+				&.active{
+					background-position: 70px 0px;
+				}
 			}
 			&.restaurant{
 				background-position: 25px -151px;
+
+				&.active{
+					background-position: 140px 0px;
+				}
 			}
 			&.hotel{
 				background-position: 25px -221px;
+
+				&.active{
+					background-position: 210px 0px;
+				}
 			}
 			&.plage{
 				background-position: 25px -291px;
+
+				&.active{
+					background-position: 280px 0px;
+				}
 			}
 			&.camping{
 				background-position: 25px -361px;
+
+				&.active{
+					background-position: 350px 0px;
+				}
 			}
 			&.dogpark{
 				background-position: 25px -431px;
+
+				&.active{
+					background-position: 420px 0px;
+				}
 			}
 			&.taxi{
 				background-position: 25px -501px;
+
+				&.active{
+					background-position: 490px 0px;
+				}
 			}
 		}
 
@@ -558,6 +588,27 @@ footer.footer-app {
 }
 
 ////////////////////////////////////////////////////////////// Resultats recherche
+
+.item-current-over{
+	font-family: @freight;
+	color: #FFFFFF;
+	left: 50px;
+    position: absolute;
+    top: 120px;
+    z-index: 1;
+	.title{
+		font-size: 32px;
+		padding: 10px 10px;
+		background-color: #f2385a;
+		display: inline-block;
+	}
+	.type{
+		padding: 10px 10px;
+		margin-top: 5px;
+		background-color: #2e2b25;
+		display: inline-block;
+	}
+}
 .details-place-zone {
 	position: relative;
 	z-index: 10;
@@ -986,6 +1037,11 @@ footer.footer-app {
 					padding: 10px;
 					background: white;
 					margin: 0 0px 10px 0px;
+
+					&.active{
+						
+						.box-shadow(5px, 1px, 9px, #F2385A);
+					}
 
 					a {
 						display: block;
