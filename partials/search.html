@@ -1,6 +1,3 @@
-<div class="wrap-map">
-    <google-map center="center" draggable="true" zoom="zoom" mark-click="true" class="map-app"></google-map>
-</div>
 <header class="header-app">
     <div class="ymp-header"></div>
     <div class="sub-header">
@@ -14,34 +11,40 @@
         </ul>
     </div>
 </header>
+<div class="wrap-map">
+    <leaflet class="map-app" markers="map.markers" center="map.center" layers="map.layers"></leaflet>
+</div>
 <div class="start-search-block" id="start-block">
     <h1>Rechercher les lieux qui acceptent votre animal de compagnie.</h1>
     <div class="fields-search">
         <input type="text" name="what" class="input-what" id="search-what" placeholder="Essayer avec restaurant ou hôtel">
         <input type="text" name="where" class="input-where" id="search-where" placeholder="à Bordeaux, France">
-        <button class="btn" onclick="Search()">Lancer la recherche</button>
+        <button class="btn" ng-click="search()">Lancer la recherche</button>
     </div>
 </div>
 <div class="result-search-zone">
+    
     <div class="result-search-column">
-        <form>
-            <input type="text" name="what" class="input-what" placeholder="Café">
-            <input type="text" name="where" class="input-where" placeholder="à Bordeaux, France">
-        </form>
-        <div class="result-search-tags">
-            <span class="title-tags">Trier les résultats par :</span>
-            <ul>
-                <li class="selected"><a href="#">En avant</a></li>
-                <li class="selected"><a href="#">Populaires</a></li>
-                <li><a href="#">Type</a></li>
-                <li><a href="#">Distance</a></li>
-                <li><a href="#">Ouvert</a></li>
-                <li><a href="#">Prix</a></li>
-            </ul>
+        <div class="result-controls">
+            <form>
+                <input type="text" name="what" class="input-what" placeholder="Café">
+                <input type="text" name="where" class="input-where" placeholder="à Bordeaux, France">
+            </form>
+            <div class="result-search-tags">
+                <span class="title-tags">Trier les résultats par :</span>
+                <ul>
+                    <li class="selected"><a href="#">En avant</a></li>
+                    <li class="selected"><a href="#">Populaires</a></li>
+                    <li><a href="#">Type</a></li>
+                    <li><a href="#">Distance</a></li>
+                    <li><a href="#">Ouvert</a></li>
+                    <li><a href="#">Prix</a></li>
+                </ul>
+            </div>
         </div>
         <div class="result-search-scroll">
             <ul>
-                <li ng-repeat="item in results" data-id="{{item.id}}">
+                <li ng-repeat="item in results" class="result-search-elmt featured" data-id="{{item.id}}">
                     <figure>
                         <img class="bandeau-featured" src="assets/img/bandeau-featured.png"/>
                         <img class="img-featured" src="assets/img/ex-pic-featured.png"/>
@@ -87,10 +90,11 @@
 <script>
 
 $(document).ready(function(){
-    var footermargin = parseFloat($('footer').css('padding-top'))*2;
 
-    var height = $(window).height() - $('.result-search-zone').position().top - $('.result-search-scroll').position().top - $('footer').height() - footermargin;
-    
+    var height = $(window).height() - $('header').height() - $('footer').height();
+    $('.result-search-zone').css('height',height);
+
+    height = height - $('.result-controls').height() + 5; // Offset de 5 
     $('.result-search-scroll').css('height',height);
 
     var $searchBlock = $(".start-search-block");
@@ -98,70 +102,5 @@ $(document).ready(function(){
     var searchBlockMarginTop = Math.floor(($(window).height() - searchBlockHeight) / 2);
     if (searchBlockMarginTop > 0)
         $searchBlock.css("margin-top", searchBlockMarginTop);
-});
-function Search(){
-
-    var what = $('#search-what').val(),
-        where = $('#search-where').val();
-
-     $('#start-block').fadeOut();
-
-    $.ajax({
-        url: 'data.json',
-        type: 'GET',
-        datatype: "json",
-        data: {what: what, where: where},
-    })
-    .done(function(data) {
-
-        var i = 0;
-        $.each(data, function(key, value){
-            var tmpLoc = new google.maps.LatLng(value.latitude, value.longitude);
-
-            switch(value.type)
-            {
-                case 'bar':
-                break;
-
-                case 'restaurant':
-                break;
-            }
-
-            setTimeout(function(){
-                marker = new google.maps.Marker({
-                    position: tmpLoc,
-                    map: map,
-                    animation: google.maps.Animation.DROP,
-                    //icon: image
-                });
-                google.maps.event.addListener(marker, 'click', function(){
-                    markerclick(key);
-                });
-            }, i*100);
-            
-            i++;
-        });
-         $('.result-search-zone').fadeIn();
-        $('.result-search-zone').animate({right: '0'}, 200);
-    })
-    .fail(function() {
-        console.log("error");
-    })
-    .always(function() {
-        console.log("complete");
     });
-}
-
-function markerclick(id)
-{
-    console.log(id);
-    var li = $('.result-search-scroll').find('li[data-id='+id+']');
-    var liPosTop = li.position().top;
-    var block = $('.result-search-scroll');
-    var blockPosTop = block.position().top;
-
-    console.log(liPosTop);
-    block.animate({top: -liPosTop}, 200);
-    
-}
 </script>

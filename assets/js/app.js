@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('PetsFriendly', ["PetsFriendly.services","google-maps"]).
+var app = angular.module('PetsFriendly', ["PetsFriendly.services","leaflet-directive"]).
   config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     //$locationProvider.html5Mode(true);
     $routeProvider.
@@ -10,6 +10,7 @@ var app = angular.module('PetsFriendly', ["PetsFriendly.services","google-maps"]
       }).
       when('/search', {
         templateUrl: 'partials/search.html',
+        controller: 'SearchCtrl'
       }).
 	   otherwise({redirectTo: '/'});
     
