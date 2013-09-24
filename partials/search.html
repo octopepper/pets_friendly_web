@@ -43,36 +43,34 @@
             </div>
         </div>
         <div class="result-search-scroll">
-            <ul>
-                <li ng-repeat="item in results" class="result-search-elmt featured" data-id="{{item.id}}">
-                    <figure>
-                        <img class="bandeau-featured" src="assets/img/bandeau-featured.png"/>
-                        <img class="img-featured" src="assets/img/ex-pic-featured.png"/>
-                    </figure>
-                    <div class="informations-elmt">
-                        <img class="icn-type-elmt" src="assets/img/ex-icn-bar.png"/>
-                        <h3>
-                            {{item.nom}}
-                            <small>{{item.type}} <span class="distance">- {{item.distance}}</span></small>
-                        </h3>
-                        <span class="reviews">
-                            <span class="reviews-nb">17 avis</span>
-                            <ul class="note">
-                                <li class="note-ko" ng-repeat="note in item.badnotes">
-                                    <img src="assets/img/icn-note.png"/>
-                                </li>
-                                <li class="note-ok" ng-repeat="note in item.goodnotes">
-                                    <img src="assets/img/icn-note.png"/>
-                                </li>
-                            </ul>
-                        </span>
-                        <div class="clear"></div>
-                    </div>
-                    <div class="desc-elmt">
-                        <p>{{item.description}}</p>
-                    </div>
-                </li>
-            </ul>
+            <div ng-repeat="item in results" class="result-search-elmt featured" data-id="{{item.id}}">
+                <figure>
+                    <img class="bandeau-featured" src="assets/img/bandeau-featured.png"/>
+                    <img class="img-featured" src="assets/img/ex-pic-featured.png"/>
+                </figure>
+                <div class="informations-elmt">
+                    <img class="icn-type-elmt" src="assets/img/ex-icn-bar.png"/>
+                    <h3>
+                        {{item.nom}}
+                        <small>{{item.type}} <span class="distance">- {{item.distance}}</span></small>
+                    </h3>
+                    <span class="reviews">
+                        <span class="reviews-nb">17 avis</span>
+                        <ul class="note">
+                            <li class="note-ko" ng-repeat="note in item.badnotes">
+                                <img src="assets/img/icn-note.png"/>
+                            </li>
+                            <li class="note-ok" ng-repeat="note in item.goodnotes">
+                                <img src="assets/img/icn-note.png"/>
+                            </li>
+                        </ul>
+                    </span>
+                    <div class="clear"></div>
+                </div>
+                <div class="desc-elmt">
+                    <p>{{item.description}}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -94,7 +92,7 @@ $(document).ready(function(){
     var height = $(window).height() - $('header').height() - $('footer').height();
     $('.result-search-zone').css('height',height);
 
-    height = height - $('.result-controls').height() + 5; // Offset de 5 
+    height = height - $('.result-controls').height() -5 ; // Offset de 5 
     $('.result-search-scroll').css('height',height);
 
     var $searchBlock = $(".start-search-block");
@@ -102,5 +100,9 @@ $(document).ready(function(){
     var searchBlockMarginTop = Math.floor(($(window).height() - searchBlockHeight) / 2);
     if (searchBlockMarginTop > 0)
         $searchBlock.css("margin-top", searchBlockMarginTop);
-    });
+
+    $(".result-search-scroll").mCustomScrollbar({scrollInertia:150});
+
+});
+
 </script>

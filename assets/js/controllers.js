@@ -1,15 +1,5 @@
 function MainCtrl($scope)
 {
-
-
-}
-
-function SearchCtrl($scope, $http)
-{
-	jQuery('.map-app').css('height',jQuery(window).height() - 110);
-
-	$scope.results = [];
-
 	angular.extend($scope, {
 		map: {
 	        center: {
@@ -29,6 +19,13 @@ function SearchCtrl($scope, $http)
 			markers : []
 	    }
      });
+}
+
+function SearchCtrl($scope, $http)
+{
+	jQuery('.map-app').css('height',jQuery(window).height() - 110);
+
+	$scope.results = [];
 
 	$scope.search = function(){
 
@@ -87,17 +84,15 @@ function SearchCtrl($scope, $http)
 	            }, i*100);
 	            i++;
 	        });
-			
-
-			
-            $('.result-search-zone').animate({right: '0'}, 200);
+            $('.result-search-zone').animate({right: '0'}, 200, function(){
+            	$(".result-search-scroll").mCustomScrollbar("update");
+            });
 	    });
-
-	    
 	}
 
 	$scope.$on('leafletDirectiveMarker.click', function(e, data){
-		console.log(e);
-		console.log(data);
+		$('.result-search-scroll').mCustomScrollbar("scrollTo","[data-id="+data.markerName+"]", {scrollInertia:1000});
+		$('.result-search-elmt').removeClass('active');
+		$('.result-search-elmt[data-id='+data.markerName+"]").addClass('active');
 	});
 }

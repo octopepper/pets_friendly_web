@@ -75,6 +75,7 @@ html, body {
 	background: white;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
 }
 
 body {
@@ -198,20 +199,8 @@ ul.content li {
 		bottom: 0;
 		background: white;
 
-		.angular-google-map-container {
-	        width: 100%;
-	        height: 600px;
-	    }
-
-	    /* fix for Twitter Bootstrap handling of responsive images */
-	    .angular-google-map img {
-	        max-width: inherit;
-	    }
-
-
-	    .angular-google-map {
-	        top:80px;
-
+		.leaflet-control-layers {
+			display: none;
 	    }
 
 		img{
@@ -928,6 +917,13 @@ footer.footer-app {
 	}
 }
 
+.mCSB_container{
+	margin-right: 0;
+}
+
+.mCSB_scrollTools{
+	visibility: hidden;
+}
 .result-search-zone {
 	position: absolute;
 	z-index: 11;
@@ -944,17 +940,15 @@ footer.footer-app {
 
 		.result-search-scroll {
 			position: relative;
-			top: -11px;
 			z-index: 1;
 			width: 100%;
-			margin-bottom: 40px;
+			overflow: auto;
 
-			ul {
 				.result-search-elmt {
 					position: relative;
 					padding: 10px;
 					background: white;
-					margin: 10px 0px;
+					margin: 0 0px 10px 0px;
 
 					a {
 						display: block;
@@ -1077,7 +1071,7 @@ footer.footer-app {
 							}
 						}
 				}
-			}
+			
 		}
 
 		form {
