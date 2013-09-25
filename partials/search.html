@@ -27,7 +27,7 @@
     <div class="clear"></div>
     <div class="type" ng-show="currentItem.type != ''">{{currentItem.type}}</div>
 </div>
-<div class="result-search-zone">
+<div class="result-search-zone" ng-mouseleave="leaveItem(item.id)">
     <div class="result-search-column">
         <div class="result-controls">
             <form>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="result-search-scroll">
-            <div ng-repeat="item in results | orderBy:predicat" class="result-search-elmt pointer" ng-mouseleave="leaveItem(item.id)" ng-mouseenter="enterItem(item.id)" ng-class="item.typeResult" data-id="{{item.id}}" ng-click="getDetails(item.id)">
+            <div ng-repeat="item in results | orderBy:currentSort" class="result-search-elmt pointer" ng-mouseenter="enterItem(item.id)" ng-class="item.typeResult" data-id="{{item.id}}" ng-click="getDetails(item.id)">
                 <figure ng-show="item.typeResult == 'featured'">
                     <img class="bandeau-featured" src="assets/img/bandeau-featured.png"/>
                     <img class="img-featured" src="assets/img/ex-pic-featured.png"/>

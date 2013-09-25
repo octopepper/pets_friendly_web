@@ -38,7 +38,7 @@ function SearchCtrl($scope, $http)
 	jQuery('.map-app').css('height',jQuery(window).height() - 110);
 
 	$scope.currentItem = {title : '', type: ''};
-	$scope.results = {};
+	$scope.results = [];
 
 	$('#search-what-inline,#search-where-inline').on('keypress',function(e){
 		if(e.which == 13)
@@ -68,7 +68,7 @@ function SearchCtrl($scope, $http)
 	        angular.forEach(data, function(value, key){
 	        	value.id = key;
 	        	value.typeResult = 'featured';
-	        	$scope.results[key] = value;
+	        	$scope.results.push(value);
 
 	            var classIcon = "";
 	            switch(value.type)
@@ -219,6 +219,8 @@ function SearchCtrl($scope, $http)
 		}
 	];
 
+	$scope.currentSort = [];
+
 
 	$scope.sortResult = function(){
 		var sortData = [];
@@ -235,10 +237,12 @@ function SearchCtrl($scope, $http)
         	}
         }
 
+        console.log(sortData);
         return sortData;
 	}
 
 	$scope.$watch('sortResultValues', function(newModel, oldModel, $scope) {
-		$scope.sortResult();
+		$scope.currentSort = $scope.sortResult();
+		$(".result-search-scroll").mCustomScrollbar("update");
 	}, true);
 }
