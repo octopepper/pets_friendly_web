@@ -3,6 +3,10 @@ function MainCtrl($scope)
 
 	angular.extend($scope, {
 		map: {
+			defaults:{
+				maxZoom: 15,
+    			minZoom: 9,
+			},
 	        center: {
 	            lat: 44.849541,
 	            lng: -0.579643,
@@ -216,7 +220,8 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 
 	$scope.getDetails = function(id)
 	{
-		alert(id);
+		$('.details-place-zone').css('display','block');
+		$('.details-place-zone').animate({left:0},300);
 	}
 
 	$scope.enterItem = function(id)

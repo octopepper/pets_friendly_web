@@ -12,13 +12,13 @@
     </div>
 </header>
 <div class="wrap-map">
-    <leaflet class="map-app" markers="map.markers" center="map.center" layers="map.layers"></leaflet>
+    <leaflet class="map-app" markers="map.markers" center="map.center" layers="map.layers" defaults="map.defaults"></leaflet>
 </div>
 <div class="start-search-block" id="start-block">
     <h1>Rechercher les lieux qui acceptent votre animal de compagnie.</h1>
     <div class="fields-search">
-        <input type="text" name="what" class="input-what" id="search-what"  placeholder="Essayer avec restaurant ou hôtel">
-        <input type="text" name="where" class="input-where" id="search-where"  placeholder="à Bordeaux, France">
+        <input type="text" name="what" class="input-what" id="search-what" value="restaurant"  placeholder="Essayer avec restaurant ou hôtel">
+        <input type="text" name="where" class="input-where" id="search-where" value="bordeaux"  placeholder="à Bordeaux, France">
         <button class="btn" id="btn-search" ng-click="search()">Lancer la recherche</button>
         <img src="assets/img/ajax-loader.gif" id="ajax-loader" alt="">
         <h5 class="no-result">Aucun résultats pour cette recherche</h5>
@@ -29,6 +29,7 @@
     <div class="clear"></div>
     <div class="type" ng-show="currentItem.type != ''">{{currentItem.type}}</div>
 </div>
+<!-- ============================== RESULT ITEMS ============================== -->
 <div class="result-search-zone" >
     <div class="result-search-column">
         <div class="result-controls">
@@ -81,6 +82,197 @@
         </div>
     </div>
 </div>
+<!-- ============================== DETAILS ITEM ============================== -->
+ <div class="details-place-zone">
+    
+    <div class="details-place-sheet">
+        <ul class="gallery">
+            <li class="big"><img src="assets/img/ex-pic-gallery-big.png"/></li>
+            <ul>
+                <li class="little"><img src="assets/img/ex-pic-gallery-little-01.png"/></li>
+                <li class="little"><img src="assets/img/ex-pic-gallery-little-02.png"/></li>
+                <li class="little"><img src="assets/img/ex-pic-gallery-little-03.png"/></li>
+                <li class="little"><img src="assets/img/ex-pic-gallery-little-04.png"/></li>
+            </ul>
+        </ul>
+        <div class="details-content">
+            <button onclick="$('.details-place-zone').animate({left:'-68%'},300,function(){$('.details-place-zone').css('display','none');});">CLOSE</button>
+            <div class="content-left">
+                <div class="informations-elmt">
+                    <img class="icn-type-elmt" src="assets/img/ex-icn-bar.png"/>
+                    <h3>
+                        Le Café brun
+                        <small>Bar <span class="distance">- 0,8 km</span></small>
+                    </h3>
+                    <span class="reviews">
+                        <span class="reviews-nb">17 avis</span>
+                        <ul class="note">
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                        </ul>
+                    </span>
+                    <div class="clear"></div>
+                </div>
+                <div class="desc">
+                    <p>Le matin, vous avez le loisir de vous confier à Tara rien que pour le plaisir d’entendre cet accent qui donnerait envie de boire une Guiness.</p>
+
+                    <p>Le soir, l’équipe d’Arnaud prend le relais. Davantage que les hommes, la déco vous ramène quelques nombeuses années en arrière, par ses objets chinés au fil des brocantes...</p>
+
+                    <p>Devant un petit noir ou une pinte, les conversations vont bon train. Jeunes fringants, moins jeunes, copains de Léon (le patron) et cols cravatés se détendent après la journée. Tout le monde se côtoie dans un joyeux brouhaha festif et l’ambiance monte crescendo en cours de soirée. Bières à la pression, vins au verre ou à la bouteille, petits sandwiches, la plus belle carte de whiskies de Bordeaux.</p>
+
+                    <p>Des concerts les jeudi et dimanche, les grands évènements sur grand écran. Bref, une institution sympatique.</p>
+                </div>
+            </div>
+            <div class="content-right">
+                <a class="btn-streetview" href="#">Street View</a>
+                <div class="hours">
+                    <h4>Horaires d'ouverture</h4>
+                    <ul>
+                        <li class="title-list">Ouvert 7 jours/7 :</li>
+                        <li>- lundi à samedi de 9h à 02h</li>
+                        <li>- Le dimanche de 12h à 02h</li>
+                    </ul>
+                </div>
+                <div class="contact">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li class="title-list">Adresse :</li>
+                        <li>45 rue Saint Rémi</li>
+                        <li>33000 BORDEAUX</li>
+                    </ul>
+                    <ul>
+                        <li class="title-list">Téléphone :</li>
+                        <li>05 56 52 20 49</li>
+                    </ul>
+                    <ul>
+                        <li class="title-list">Site web :</li>
+                        <li>www.bar-pub-bordeaux.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="details-content-reviews">
+            <div class="content-left">
+                <h2>Il y à 4 avis pour le Café Brun</h2>
+                <ul class="reviews-content">
+                    <li class="one-review">
+                        <figure class="user-photo">
+                            <img src="assets/img/ex-pic-user.png"/>
+                            <figcaption>Messi</figcaption>
+                        </figure>
+                        <p class="review">
+                            “Super restau, les gens sont sympas, et l’ambiance aussi. Les burgers sont terribles!”
+                        </p>
+                        <a href="#" class="abuse-alert">Signaler un abus</a>
+                        <ul class="note">
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </li>
+                    <li class="one-review">
+                        <figure class="user-photo">
+                            <img src="assets/img/ex-pic-user.png"/>
+                            <figcaption>Messi</figcaption>
+                        </figure>
+                        <p class="review">
+                            “Super restau, lazrfl’ambiance aussi. Les burgers sont terribles!”
+                        </p>
+                        <a href="#" class="abuse-alert">Signaler un abus</a>
+                        <ul class="note">
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </li>
+                    <li class="one-review">
+                        <figure class="user-photo">
+                            <img src="assets/img/ex-pic-user.png"/>
+                            <figcaption>Messi</figcaption>
+                        </figure>
+                        <p class="review">
+                            “Super restau, les gens sont symapiozjrf paoerihu mpas, et l’ambiance aussi. Les burgers sont term ejzf zeif àzehcoazpc êijozfpoaizerjfazrf piuhefpvnu   riblmoiazef poziref zerf aes!”
+                        </p>
+                        <a href="#" class="abuse-alert">Signaler un abus</a>
+                        <ul class="note">
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ok"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                            <li class="note-ko"><img src="assets/img/icn-note.png"/></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </li>
+                </ul>
+                <h2>Faites nous part de votre avis</h2>
+                <form class="post-review">
+                    <div class="triple-field">
+                        <div class="field lastname">
+                            <label for="last-name">Nom* :</label>
+                            <input type="text" id="first-name" name="first-name">
+                        </div>
+                        <div class="field firstname">
+                            <label for="first-name">Prénom :</label>
+                            <input type="text" id="first-name" name="last-name">
+                        </div>
+                        <div class="clear"></div>
+                        <div class="field mail">
+                            <label for="mail">Adresse mail* :</label>
+                            <input type="text" id="mail" name="mail">
+                        </div>
+                    </div>
+                    <a class="connect-ymp" href="#">Connectez vous avec Yummypets.</a>
+                    <div class="clear"></div>
+                    <div class="field comment">
+                        <label for="comment">Commentaire* :</label>
+                        <textarea id="comment"></textarea>
+                    </div>
+                    <a href="#" id="submit" class="btn send-comment">Envoyer</a>
+                </form>
+            </div>
+            <div class="content-right">
+                <a class="book-block" href="#">
+                    <div class="icn-book-block"></div>
+                    <span class="title-book-block">
+                        <strong>Réserver</strong> une place au <strong>café brun</strong>
+                    </span>
+                    <span class="small-book-block">
+                        Et profitez des offres Fidolia.
+                    </span>
+                </a>
+                <div class="share">
+                    <span><strong>Partager ce lieu</strong> sur les réseaux :</span>
+                    <ul>
+                        <li class="share-ymp"><a href="#">Yummypets</a></li>
+                        <li class="share-fb"><a href="#">Facebook</a></li>
+                        <li class="share-tw"><a href="#">Twitter</a></li>
+                    </ul>
+                </div>
+                <div class="check">
+                    <span>Des <strong>Yummypotes</strong> sont passés par ici:</span>
+                    <ul>
+                        <li><a href="#"><img src="assets/img/ex-pic-user.png"/><span>Charlotte</span></a></li>
+                        <li><a href="#"><img src="assets/img/ex-pic-user.png"/><span>Charlotte</span></a></li>
+                        <li><a href="#"><img src="assets/img/ex-pic-user.png"/><span>Charlotte</span></a></li>
+                        <li><a href="#"><img src="assets/img/ex-pic-user.png"/><span>Charlotte</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+</div>
 <footer class="footer-app">
         <a href="#" class="powered-by">
             Fidolia est un service fièrement propulsé par Yummypets.
@@ -95,6 +287,14 @@
 <script>
 
 $(document).ready(function(){
+    var options = {
+        types: ['(cities)'],
+        componentRestrictions: {country: "fr"}
+    };
+    var input = document.getElementById('search-where');
+    var autocomplete = new google.maps.places.Autocomplete(input,options);
+    input = document.getElementById('search-where-inline');
+    var autocomplete = new google.maps.places.Autocomplete(input,options);
 
     var height = $(window).height() - $('header').height() - $('footer').height();
     $('.result-search-zone').css('height',height);
@@ -109,7 +309,6 @@ $(document).ready(function(){
         $searchBlock.css("margin-top", searchBlockMarginTop);
 
     $(".result-search-scroll").mCustomScrollbar({scrollInertia:150});
-
 });
 
 </script>

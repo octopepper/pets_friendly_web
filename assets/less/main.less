@@ -459,7 +459,9 @@ footer.footer-app {
 }
 
 ////////////////////////////////////////////////////////////// Home didactique
-
+.pac-container:after{
+	background-image: none;
+}
 .illu-first-block {
 	position: absolute;
 	z-index: 100;
@@ -629,12 +631,13 @@ footer.footer-app {
 	}
 }
 .details-place-zone {
-	position: relative;
+	position: absolute;
 	z-index: 10;
 	width: 68%;
-	float: left;
-	margin-top: 110px;
+	top: 110px;
 	pointer-events: none;
+	left:-70%;
+	display: none;
 
 	.details-place-sheet {
 		height: 100%;
@@ -1042,7 +1045,7 @@ footer.footer-app {
 	right: -32%;
 
 	.result-search-column {
-		position: relative;
+		position: fixed;
 		overflow-y: hidden;
 
 		.result-search-scroll {
