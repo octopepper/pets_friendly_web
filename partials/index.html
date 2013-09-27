@@ -12,11 +12,11 @@
     </div>
 </header>
 <div class="home-first-block">
-    <leaflet class="map" center="map.center" layers="map.layers"></leaflet>
+    <!--<leaflet class="map" center="map.center" layers="map.layers"></leaflet>  -->
     <form class="form-home">
-        <input type="text" name="what" class="input-what" placeholder="Essayer avec restaurant ou hôtel">
-        <input type="text" name="where" class="input-where" placeholder="à Bordeaux, France">
-        <a href="#" class="btn btn-go">GO</a>
+        <input type="text" name="what" id="search-what" class="input-what" placeholder="Essayer avec restaurant ou hôtel">
+        <input type="text" name="where" id="search-where" class="input-where" placeholder="à Bordeaux, France">
+        <div ng-click="go()" class="btn btn-go pointer">GO</div>
     </form>
     <div class="clear"></div>
 </div>
@@ -43,20 +43,23 @@
     <div class="clear"></div>
 </div>
 
-<div class="home-third-block home-block">
-    <div class="desc">
-        <h2>Organisez et planifiez vos vacances et voyages en toute tranquillité.</h2>
-        <p>Avec le service Pets Friendly vous avez accès à toutes les informations utiles pour voyager avec votre animal de compagnie :</p>
-        <ul class="content">
-            <li><strong>Découvrez</strong> tous les lieux qui acceptent votre animal</li>
-            <li><strong>Réservez</strong> une nuit parmi les hôtels référencés au label Fidolia</li>
-            <li>Découvrez de <strong>nouveaux lieux</strong> pour promener votre pet</li>
-            <li><strong>Consultez et postez des avis</strong> sur les endroits visités</li>
-            <li><strong>Profitez</strong> de nos conseils pour <strong>voyager</strong> sereinement avec votre animal de compagnie</li>
-        </ul>
+<div class="home-third-block">
+    <div class="home-block">
+        <div class="desc">
+            <h2>Organisez et planifiez vos vacances et voyages en toute tranquillité.</h2>
+            <p>Avec le service Pets Friendly vous avez accès à toutes les informations utiles pour voyager avec votre animal de compagnie :</p>
+            <ul class="content">
+                <li><strong>Découvrez</strong> tous les lieux qui acceptent votre animal</li>
+                <li><strong>Réservez</strong> une nuit parmi les hôtels référencés au label Fidolia</li>
+                <li>Découvrez de <strong>nouveaux lieux</strong> pour promener votre pet</li>
+                <li><strong>Consultez et postez des avis</strong> sur les endroits visités</li>
+                <li><strong>Profitez</strong> de nos conseils pour <strong>voyager</strong> sereinement avec votre animal de compagnie</li>
+            </ul>
+        </div>
+        <div class="illu"></div>
+        <div class="clear"></div>
     </div>
-    <div class="illu"></div>
-    <div class="clear"></div>
+    
 </div>
 
 <div class="home-fourth-block home-block">

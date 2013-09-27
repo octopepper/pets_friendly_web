@@ -175,6 +175,10 @@ ul.content li {
 //			LET'S GO
 // ---------------------------
 
+.leaflet-control-layers {
+	display: none;
+}
+
 .map {
 	position: absolute;
 	z-index: 1;
@@ -183,6 +187,10 @@ ul.content li {
 	top: 0;
 	left: 0;
 	background: white;
+
+	img{
+		max-width: none;
+	}
 }
 .wrap-map {
 	position: fixed;
@@ -266,13 +274,6 @@ ul.content li {
 			}
 		}
 
-		.leaflet-control-layers {
-			display: none;
-	    }
-
-		img{
-			max-width: none;
-		}
 	}
 }
 
@@ -411,6 +412,12 @@ footer.footer-app {
 	.fields-search {
 		width: 610px;
 		margin: 20px auto 0px;
+		text-align: center;
+
+		#ajax-loader{
+			margin-top: 15px;
+			display: none;
+		}
 
 		button {
 			border:none;
@@ -470,6 +477,8 @@ footer.footer-app {
 	height: 460px;
 	width: 100%;
 	margin: 0 auto;
+	background-image: url('../img/bg-block1-home.jpg');
+	background-size: 100% 100%;
 }
 
 .intro-text {
@@ -555,6 +564,7 @@ footer.footer-app {
 }
 
 .home-third-block {
+	background-image: url('../img/bg-block3-home.png');
 	.illu {
 		background-image: url("../img/illu-third-block.png");
 		height: 318px;

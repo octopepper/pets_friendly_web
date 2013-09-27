@@ -26,19 +26,38 @@ function MainCtrl($scope)
 	    }
      });
 
+	$scope.go = function(){
+		var what = $('#search-what').val(),
+       	 	where = $('#search-where').val();
+
+       	if(what != undefined && where != undefined)
+       	{
+       		window.location.href += "search?c="+where+"&t="+what;
+       	}
+	}
+
 	$scope.range = function(n) {
         return new Array(n);
     };
 }
 
-function SearchCtrl($scope, $http, $q, geolocation)
+function SearchCtrl($scope, $http, $q, geolocation, $route)
 {
 	$scope.geoloc = "";
+	$scope.isMarkerGeoloc = false;
 	var geoloc = geolocation.position();
 
 	geoloc.then(function(pos) {
-		console.log(pos);
 		$scope.geoloc = new L.LatLng(pos.coords.latitude,pos.coords.longitude);
+
+		if($scope.isMarkerGeoloc == false && $scope.results.length != 0)
+		{
+			$scope.map.markers.push({
+				lat: $scope.geoloc.lat,
+				lng: $scope.geoloc.lng
+			});
+			$scope.reCalcDistance();
+		}
 	}, function(reason) {
 		$scope.geoloc = reason;
 	});
@@ -62,7 +81,6 @@ function SearchCtrl($scope, $http, $q, geolocation)
 		}
 	});
 
-	
 
 	$scope.search = function(what,where){
 
@@ -73,26 +91,30 @@ function SearchCtrl($scope, $http, $q, geolocation)
        	 	where = where || $('#search-where').val();
 
        	var tmpMarker = [];
+       	$('#ajax-loader').fadeIn();
+       	$('#btn-search').css('display','none');
+
      	$http.jsonp('http://192.168.1.168/establishment/query?callback=JSON_CALLBACK&type=' + what + '&city=' + where).success(function(data){
+	    	
+	    	$('#ajax-loader').fadeOut();
+	    	
 	    	if(data.status == false)
 	    	{
 	    		$('.result-search-zone').animate({right: '-32%'},300);
-	    		$('#start-block, .no-result').fadeIn();
+	    		$('#start-block, .no-result,#btn-search').fadeIn();
 	    		$('#search-what').attr('value',what);
 	    		$('#search-where').attr('value',where);
 	    		return false;
 	    	}
-
 	    	$('#start-block, .no-result').fadeOut();
 	        var i = 0;
 	        angular.forEach(data, function(value, key){
+
 	        	value.id = key;
 	        	value.typeResult = 'featured';
 
 	        	value.goodnotes = value.popularity;
 	        	value.badnotes = 5-value.popularity;
-
-	        	console.log(value);
 
 	        	var classIcon = "";
 	            var category = value.cat || '';
@@ -102,23 +124,7 @@ function SearchCtrl($scope, $http, $q, geolocation)
 	        	$scope.results.push(value);
 
 	            var position = value.store.split(', ');
-	            if(typeof $scope.geoloc != "string")
-	            {
-	            	var latlng = new L.LatLng(position[0], position[1]);
-	            	value.distance = Math.round(Math.round(latlng.distanceTo($scope.geoloc))/100)*100;
-	            	if(value.distance > 1000 && value.distance < 10000)
-	            	{
-						value.distance = value.distance.toString().slice(0,2);
-						var kilometer = value.distance.slice(0,1);
-						var unit = value.distance.slice(1,2);
-						value.distance = kilometer+","+unit;
-	            	}
-	            	if(value.distance < 1000)
-	            	{
-	            		value.distance = "0,"+value.distance.toString().slice(0,1);
-	            	}
-	            	
-	            }
+	            value.distance = GetDistance(position);
 	           
 
 	            switch(category.toLowerCase())
@@ -171,10 +177,23 @@ function SearchCtrl($scope, $http, $q, geolocation)
 		            }),
 					id: key
         		};
+
+
         		setTimeout(function(){
 	            	$scope.$apply(function(){
 	            		$scope.map.markers.push(marker);
 					});
+					if(key == data.length-1)
+					{
+						if(typeof $scope.geoloc != "string")
+						{
+							$scope.map.markers.push({
+								lat: $scope.geoloc.lat,
+								lng: $scope.geoloc.lng
+							});
+							$scope.isMarkerGeoloc = true;
+						}
+					}
 	            }, key*100);
 	        });
 
@@ -182,13 +201,14 @@ function SearchCtrl($scope, $http, $q, geolocation)
             	$(".result-search-scroll").mCustomScrollbar("update");
             });
 	    });
-		if(typeof $scope.geoloc != "string")
-		{
-			$scope.map.markers.push({
-				lat: $scope.geoloc.lat,
-				lng: $scope.geoloc.lng
-			});
-		}
+	}
+
+	if($route.current.params.c != undefined && $route.current.params.t != undefined)
+	{
+		var params = $route.current.params;
+		$scope.search(params.t,params.c);
+		$('#search-what').attr('value',params.type);
+		$('#search-where').attr('value',params.city);
 	}
 
 	$scope.getDetails = function(id)
@@ -302,4 +322,34 @@ function SearchCtrl($scope, $http, $q, geolocation)
 		$scope.currentSort = $scope.sortResult();
 		$(".result-search-scroll").mCustomScrollbar("update");
 	}, true);
+
+	$scope.reCalcDistance = function(){
+		angular.forEach($scope.results, function(value, key){
+			var position = value.store.split(', ');
+			value.distance = GetDistance(position);
+			$scope.results[key] = value;
+		});
+	}
+
+	function GetDistance(position)
+	{
+		var distance;
+		if(typeof $scope.geoloc != "string")
+        {
+        	var latlng = new L.LatLng(position[0], position[1]);
+        	distance = Math.round(Math.round(latlng.distanceTo($scope.geoloc))/100)*100;
+        	if(distance > 1000 && distance < 10000)
+        	{
+				distance = distance.toString().slice(0,2);
+				var kilometer = distance.slice(0,1);
+				var unit = distance.slice(1,2);
+				distance = kilometer+","+unit;
+        	}
+        	if(distance < 1000)
+        	{
+        		distance = "0,"+distance.toString().slice(0,1);
+        	}
+        }
+        return distance;
+	}
 }
