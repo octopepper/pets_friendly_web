@@ -1,6 +1,5 @@
 function MainCtrl($scope)
 {
-
 	angular.extend($scope, {
 		map: {
 			defaults:{
@@ -22,11 +21,6 @@ function MainCtrl($scope)
 				}
 			},
 			markers : [],
-			default_icon: L.icon({
-                iconUrl: 'assets/img/Sprite-markers.png',
-                iconSize:     [25, 39],
-			    iconAnchor:   [49, 11],
-            })
 	    }
      });
 
