@@ -58,15 +58,15 @@
                     <img class="icn-type-elmt" src="assets/img/ex-icn-bar.png"/>
                     <h3>
                         {{item.name}}
-                        <small>{{item.cat}} <span class="distance">- {{item.distance}}</span></small>
+                        <small>{{item.cat}} <span class="distance" ng-show="item.distance">- {{item.distance}} km</span></small>
                     </h3>
                     <span class="reviews">
                         <span class="reviews-nb">17 avis</span>
                         <ul class="note">
-                            <li class="note-ko" ng-repeat="note in item.badnotes">
+                            <li class="note-ok" ng-repeat="note in range(item.goodnotes)">
                                 <img src="assets/img/icn-note.png"/>
                             </li>
-                            <li class="note-ok" ng-repeat="note in item.goodnotes">
+                            <li class="note-ko" ng-repeat="note in range(item.badnotes)">
                                 <img src="assets/img/icn-note.png"/>
                             </li>
                         </ul>

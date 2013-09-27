@@ -1,5 +1,6 @@
 function MainCtrl($scope)
 {
+
 	angular.extend($scope, {
 		map: {
 	        center: {
@@ -24,10 +25,24 @@ function MainCtrl($scope)
             })
 	    }
      });
+
+	$scope.range = function(n) {
+        return new Array(n);
+    };
 }
 
-function SearchCtrl($scope, $http, $q)
+function SearchCtrl($scope, $http, $q, geolocation)
 {
+	$scope.geoloc = "";
+	var geoloc = geolocation.position();
+
+	geoloc.then(function(pos) {
+		console.log(pos);
+		$scope.geoloc = new L.LatLng(pos.coords.latitude,pos.coords.longitude);
+	}, function(reason) {
+		$scope.geoloc = reason;
+	});
+
 	jQuery('.map-app').css('height',jQuery(window).height() - 110);
 
 	$scope.currentItem = {title : '', type: ''};
@@ -77,13 +92,34 @@ function SearchCtrl($scope, $http, $q)
 	        	value.goodnotes = value.popularity;
 	        	value.badnotes = 5-value.popularity;
 
-	        	$scope.results.push(value);
+	        	console.log(value);
 
-
-	            var classIcon = "";
+	        	var classIcon = "";
 	            var category = value.cat || '';
 
+	            value.cat = category;
+
+	        	$scope.results.push(value);
+
 	            var position = value.store.split(', ');
+	            if(typeof $scope.geoloc != "string")
+	            {
+	            	var latlng = new L.LatLng(position[0], position[1]);
+	            	value.distance = Math.round(Math.round(latlng.distanceTo($scope.geoloc))/100)*100;
+	            	if(value.distance > 1000 && value.distance < 10000)
+	            	{
+						value.distance = value.distance.toString().slice(0,2);
+						var kilometer = value.distance.slice(0,1);
+						var unit = value.distance.slice(1,2);
+						value.distance = kilometer+","+unit;
+	            	}
+	            	if(value.distance < 1000)
+	            	{
+	            		value.distance = "0,"+value.distance.toString().slice(0,1);
+	            	}
+	            	
+	            }
+	           
 
 	            switch(category.toLowerCase())
 	            {
@@ -146,6 +182,13 @@ function SearchCtrl($scope, $http, $q)
             	$(".result-search-scroll").mCustomScrollbar("update");
             });
 	    });
+		if(typeof $scope.geoloc != "string")
+		{
+			$scope.map.markers.push({
+				lat: $scope.geoloc.lat,
+				lng: $scope.geoloc.lng
+			});
+		}
 	}
 
 	$scope.getDetails = function(id)
@@ -156,7 +199,7 @@ function SearchCtrl($scope, $http, $q)
 	$scope.enterItem = function(id)
 	{
 		var result = $scope.results[id];
-		$scope.currentItem = {title : result.name, type: result.description};
+		$scope.currentItem = {title : result.name, type: result.cat};
 	}
 
 	$scope.leaveItem = function(id)
@@ -219,7 +262,7 @@ function SearchCtrl($scope, $http, $q)
 			libelle : 'Distance',
 			active: false,
 			sortOrder: "ascending",
-           	sortAttribute: "name"
+           	sortAttribute: "distance"
 		},
 		{
 			libelle : 'Ouvert',
