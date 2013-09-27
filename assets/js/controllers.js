@@ -90,6 +90,8 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 		var what = what || $('#search-what').val() ,
        	 	where = where || $('#search-where').val();
 
+       	if(what == "" || where == "") {return false};
+
        	var tmpMarker = [];
        	$('#ajax-loader').fadeIn();
        	$('#btn-search').css('display','none');
@@ -171,6 +173,7 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 					lng: parseFloat(position[1]),
 					icon: L.divIcon({
 		            	className : 'icon-marker '+classIcon,
+		            	html : '<input type="hidden" value="'+key+'" id="marker-'+key+'" />',
 		                iconSize:     [25, 39],
 		                popupAnchor: [0, 0],
 		                iconAnchor : [12,39]
@@ -220,12 +223,18 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 	{
 		var result = $scope.results[id];
 		$scope.currentItem = {title : result.name, type: result.cat};
+
+		var data = {leafletEvent: {target : {_icon:$('#marker-'+id).parent()}}};
+		$scope.$broadcast('leafletDirectiveMarker.mouseover', data);
 	}
 
 	$scope.leaveItem = function(id)
 	{
 		var result = $scope.results[id];
 		$scope.currentItem = {title : '', type: ''};
+
+		var data = $('#marker-'+id).parent();
+		$scope.$broadcast('leafletDirectiveMarker.mouseout', data);
 	}
 
 	function GetPosMarker(matrix)
@@ -238,7 +247,15 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 	}
 
 	$scope.$on('leafletDirectiveMarker.mouseover', function(e, data){
-		var icon = $(data.leafletEvent.target._icon);
+		if(data.leafletEvent != undefined)
+		{
+			var icon = $(data.leafletEvent.target._icon);
+		}
+		else
+		{
+			var icon = $(data);
+		}
+		
 		var matrix = GetPosMarker(icon.css('transform'));
 
 		icon.css({ 'transform' : 'translate(' + (matrix.posx-7) + 'px, ' + (matrix.posy-20) + 'px)' });
@@ -246,7 +263,14 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 		icon.addClass('active');
 	});
 	$scope.$on('leafletDirectiveMarker.mouseout', function(e, data){
-		var icon = $(data.leafletEvent.target._icon);
+		if(data.leafletEvent != undefined)
+		{
+			var icon = $(data.leafletEvent.target._icon);
+		}
+		else
+		{
+			var icon = $(data);
+		}
 		var matrix = GetPosMarker(icon.css('transform'));
 
 		icon.css({ 'transform' : 'translate(' + (matrix.posx+7) + 'px, ' + (matrix.posy+20) + 'px)' });
