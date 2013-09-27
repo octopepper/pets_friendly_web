@@ -19,21 +19,14 @@ function MainCtrl($scope)
 			markers : [],
 			default_icon: L.icon({
                 iconUrl: 'assets/img/Sprite-markers.png',
-
                 iconSize:     [25, 39],
 			    iconAnchor:   [49, 11],
-            }),
-            div_icon: L.divIcon({
-            	className : 'icon-marker',
-                iconSize:     [25, 39],
-                popupAnchor: [0, 0],
-                iconAnchor : [12,0]
-            }),
+            })
 	    }
      });
 }
 
-function SearchCtrl($scope, $http)
+function SearchCtrl($scope, $http, $q)
 {
 	jQuery('.map-app').css('height',jQuery(window).height() - 110);
 
@@ -58,20 +51,41 @@ function SearchCtrl($scope, $http)
 
 	$scope.search = function(what,where){
 
-		$scope.map.markers = [];
-		var what = $('#search-what').val() || what,
-       	 	where = $('#search-where').val() || where;
+		$scope.map.markers = [],
+			$scope.results = [];
 
-     	$http.post('data.json', {what: what, where: where}).success(function(data){
-	    	$('#start-block').fadeOut();
+		var what = what || $('#search-what').val() ,
+       	 	where = where || $('#search-where').val();
+
+       	var tmpMarker = [];
+     	$http.jsonp('http://192.168.1.168/establishment/query?callback=JSON_CALLBACK&type=' + what + '&city=' + where).success(function(data){
+	    	if(data.status == false)
+	    	{
+	    		$('.result-search-zone').animate({right: '-32%'},300);
+	    		$('#start-block, .no-result').fadeIn();
+	    		$('#search-what').attr('value',what);
+	    		$('#search-where').attr('value',where);
+	    		return false;
+	    	}
+
+	    	$('#start-block, .no-result').fadeOut();
 	        var i = 0;
 	        angular.forEach(data, function(value, key){
 	        	value.id = key;
 	        	value.typeResult = 'featured';
+
+	        	value.goodnotes = value.popularity;
+	        	value.badnotes = 5-value.popularity;
+
 	        	$scope.results.push(value);
 
+
 	            var classIcon = "";
-	            switch(value.type)
+	            var category = value.cat || '';
+
+	            var position = value.store.split(', ');
+
+	            switch(category.toLowerCase())
 	            {
 	                case 'bar':
 	                	classIcon = "bar";
@@ -109,15 +123,18 @@ function SearchCtrl($scope, $http)
 	                	classIcon = "bar";
 	                break;
 	            }
-				
-	           	var marker = {
-					lat: parseFloat(value.latitude),
-					lng: parseFloat(value.longitude),
-					icon: $scope.map.div_icon,
+
+        		var marker = {
+					lat: parseFloat(position[0]),
+					lng: parseFloat(position[1]),
+					icon: L.divIcon({
+		            	className : 'icon-marker '+classIcon,
+		                iconSize:     [25, 39],
+		                popupAnchor: [0, 0],
+		                iconAnchor : [12,39]
+		            }),
 					id: key
         		};
-        		marker.icon.options.className = 'icon-marker '+classIcon;
-
         		setTimeout(function(){
 	            	$scope.$apply(function(){
 	            		$scope.map.markers.push(marker);
@@ -125,7 +142,6 @@ function SearchCtrl($scope, $http)
 	            }, key*100);
 	        });
 
-			
             $('.result-search-zone').animate({right: '0'}, 200, function(){
             	$(".result-search-scroll").mCustomScrollbar("update");
             });
@@ -140,7 +156,7 @@ function SearchCtrl($scope, $http)
 	$scope.enterItem = function(id)
 	{
 		var result = $scope.results[id];
-		$scope.currentItem = {title : result.nom, type: result.description};
+		$scope.currentItem = {title : result.name, type: result.description};
 	}
 
 	$scope.leaveItem = function(id)
@@ -185,37 +201,37 @@ function SearchCtrl($scope, $http)
 			libelle : 'En avant',
 			active: true,
 			sortOrder: "ascending",
-           	sortAttribute: "nom"
+           	sortAttribute: "name"
 		},
 		{
 			libelle : 'Populaires',
 			active: true,
 			sortOrder: "ascending",
-           	sortAttribute: "nom"
+           	sortAttribute: "popularity"
 		},
 		{
 			libelle : 'Type',
 			active: false,
 			sortOrder: "ascending",
-           	sortAttribute: "nom"
+           	sortAttribute: "cat"
 		},
 		{
 			libelle : 'Distance',
 			active: false,
 			sortOrder: "ascending",
-           	sortAttribute: "nom"
+           	sortAttribute: "name"
 		},
 		{
 			libelle : 'Ouvert',
 			active: false,
 			sortOrder: "ascending",
-           	sortAttribute: "nom"
+           	sortAttribute: "name"
 		},
 		{
 			libelle : 'Prix',
 			active: false,
 			sortOrder: "descending",
-           	sortAttribute: "nom"
+           	sortAttribute: "price"
 		}
 	];
 
@@ -236,8 +252,6 @@ function SearchCtrl($scope, $http)
 	            }
         	}
         }
-
-        console.log(sortData);
         return sortData;
 	}
 
