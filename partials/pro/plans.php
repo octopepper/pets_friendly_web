@@ -1,16 +1,11 @@
-<header>
-    <div class="ymp-header"></div>
-    <div class="sub-header">
-        <ul class="left">
-            <li><a href="#/search">Rechercher un lieu <strong>Pets Friendly</strong></a></li>
-            <li><a href="#">Consulter l'annuaire</a></li>
-        </ul>
-        <ul class="right">
-            <li><a class="btn-join-fidolia" href="#/plans">Rejoindre le label Fidolia</a></li>
-            <li><a href="#/login">Espace pro</a></li>
-        </ul>
-    </div>
-</header>
+<?php 
+    session_start();
+    if(!isset($_SESSION['isLoggedIn']))
+    {
+        header('HTTP/1.0 401 Unauthorized');
+        exit();
+    }
+?>
 <div id="plansContainer">
 <div class="plans">
     <div class="block basique">

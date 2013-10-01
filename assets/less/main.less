@@ -126,6 +126,11 @@ ul,p {
 	&:hover {
 		background: @pink-hover;
 	}
+
+	&[disabled]
+	{
+		background-color: #DDDDDD;
+	}
 }
 
 .pointer{
@@ -298,6 +303,8 @@ header {
 		background: @choco;
 	}
 
+
+
 	.sub-header {
 		position: relative;
 		z-index: 101;
@@ -350,6 +357,24 @@ header {
 				z-index: 1000;
 				a:hover {
 					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	&.espace-pro{
+		ul{
+			&.right{
+				li{
+					cursor: pointer;
+					&:hover
+					{
+						color: @pink;
+					}
+					a{
+						text-decoration: none;
+					}
+					margin-left:10px;
 				}
 			}
 		}
@@ -1586,3 +1611,17 @@ footer.footer-app {
 	}
 }
 ///////////END PLANS
+///////////LOGIN
+#login-block{
+	.start-search-block;
+	.fields-search{
+		input{
+			background:none;
+		}
+	}
+	.error{
+		color: #F2385A;
+		margin-bottom: 0px;
+	}
+}
+///////////ENDLOGIN

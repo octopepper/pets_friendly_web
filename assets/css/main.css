@@ -7,6 +7,7 @@ ul,p{list-style:none;margin:0;padding:0}
 .left{float:left}
 .right{float:right}
 .btn{display:table;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;background:#f2385a;color:#fff;font-size:18px;font-weight:600;text-transform:uppercase;text-align:center;padding:10px 40px;margin:20px auto 0}.btn:hover{background:#f75774}
+.btn[disabled]{background-color:#ddd}
 .pointer{cursor:pointer}
 .clear{clear:both}
 ul.note li{display:inline-block}ul.note li.note-ok{opacity:1}
@@ -30,6 +31,8 @@ header .sub-header{position:relative;z-index:101;width:100%;height:50px;backgrou
 header .sub-header ul.right{text-align:right;margin-right:40px}header .sub-header ul.right li{margin-left:20px}
 header .sub-header ul.right .btn-join-fidolia{position:relative;background:#f2385a;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;color:#fff;padding:5px 10px;font-weight:600}header .sub-header ul.right .btn-join-fidolia:hover{text-decoration:none;background:#f75774}
 header .sub-header ul li{display:inline;position:relative;z-index:1000}header .sub-header ul li a:hover{text-decoration:underline}
+header.espace-pro ul.right li{cursor:pointer;margin-left:10px}header.espace-pro ul.right li:hover{color:#f2385a}
+header.espace-pro ul.right li a{text-decoration:none}
 footer.footer-app{position:fixed;z-index:21;bottom:0;left:0;width:100%;background:rgba(255,255,255,0.8);padding:5px 0}footer.footer-app .powered-by{display:table;margin-left:20px;font-size:12px;color:#999;font-weight:300;float:left}
 footer.footer-app .corporate{float:right;margin-right:20px}footer.footer-app .corporate li{display:table-cell;font-size:12px;color:#999;font-weight:300}footer.footer-app .corporate li:nth-child(n+2):before{content:"- "}
 footer.footer-app .corporate li a:hover{color:#f2385a}
@@ -144,3 +147,12 @@ footer.footer-app .corporate li a:hover{color:#f2385a}
 .plans .basique .illu-offre-basique{width:112px;height:115px;background:url('../img/illu-offre-basique.png');margin:0 auto 10px}
 .plans .basique a.btn-choose{background:#2e2b25}.plans .basique a.btn-choose:hover{background-color:#454037}
 .plans .premium .illu-offre-premium{width:124px;height:117px;background:url('../img/illu-offre-premium.png');margin:0 auto 10px}
+#login-block{position:relative;width:740px;z-index:3;padding:40px;margin:auto;background:#fff;box-shadow:0 0 8px rgba(0,0,0,0.2);-moz-box-shadow:0 0 8px rgba(0,0,0,0.2);-webkit-box-shadow:0 0 8px rgba(0,0,0,0.2)}#login-block h1{text-align:center}
+#login-block .fields-search{width:610px;margin:20px auto 0;text-align:center}#login-block .fields-search #ajax-loader{margin-top:15px;display:none}
+#login-block .fields-search button{border:none}
+#login-block .fields-search h5{color:#f2385a;margin-bottom:0}#login-block .fields-search h5.no-result{display:none}
+#login-block .fields-search input{width:300px;padding:10px 50px 10px 10px;font-size:18px;font-weight:300;color:#999;background:#fff;border:1px solid #ccc;background:url('../img/sprite-start-search.png') no-repeat}#login-block .fields-search input:focus{box-shadow:0 0 5px rgba(242,56,90,0.5);-moz-box-shadow:0 0 5px rgba(242,56,90,0.5);-webkit-box-shadow:0 0 5px rgba(242,56,90,0.5);border:1px solid #f2385a !important;outline:none}
+#login-block .fields-search input.input-what{background-position:right 13px}
+#login-block .fields-search input.input-where{background-position:right -34px}
+#login-block .fields-search input{background:none}
+#login-block .error{color:#f2385a;margin-bottom:0}

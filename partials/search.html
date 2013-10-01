@@ -6,8 +6,8 @@
             <li><a href="#">Consulter l'annuaire</a></li>
         </ul>
         <ul class="right">
-            <li><a class="btn-join-fidolia" href="#/plans">Rejoindre le label Fidolia</a></li>
-            <li><a href="#/login">Espace pro</a></li>
+            <li><a class="btn-join-fidolia" href="#/login">Rejoindre le label Fidolia</a></li>
+            <li><a href="#/pro">Espace pro</a></li>
         </ul>
     </div>
 </header>
@@ -302,11 +302,7 @@ $(document).ready(function(){
     height = height - $('.result-controls').height() -5 ; // Offset de 5 
     $('.result-search-scroll').css('height',height);
 
-    var $searchBlock = $(".start-search-block");
-    var searchBlockHeight = $searchBlock.height();
-    var searchBlockMarginTop = Math.floor(($(window).height() - searchBlockHeight) / 2);
-    if (searchBlockMarginTop > 0)
-        $searchBlock.css("margin-top", searchBlockMarginTop);
+    VerticalCenter($(".start-search-block"));
 
     $(".result-search-scroll").mCustomScrollbar({scrollInertia:150});
 });
