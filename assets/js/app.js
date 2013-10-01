@@ -12,8 +12,17 @@ var app = angular.module('PetsFriendly', ["PetsFriendly.services","leaflet-direc
         templateUrl: 'partials/search.html',
         controller: 'SearchCtrl'
       }).
-	   otherwise({redirectTo: '/'});
-    
+      when('/pro', {
+        templateUrl: 'partials/pro/index.html',
+      }).
+      when('/pro/plans', {
+        templateUrl: 'partials/pro/plans.html',
+      }).
+      when('/join', {
+        templateUrl: 'partials/join.html',
+        controller: 'JoinCtrl'
+      }).
+      otherwise({redirectTo: '/'});
   }]);
 
 angular.module('PetsFriendly.services', [])
@@ -21,11 +30,11 @@ angular.module('PetsFriendly.services', [])
         this.setProperty = function(key,value)
         {
           this[key] = value;
-        }
+        };
 
         this.getProperty = function(key){
           return this[key];
-        }
+        };
     });
 
 angular.module('ngGeolocation',[])
@@ -35,17 +44,17 @@ angular.module('ngGeolocation',[])
 function ($q , $rootScope , options){
   return {
     position: function () {
-      var deferred = $q.defer()
+      var deferred = $q.defer();
       navigator.geolocation.getCurrentPosition(function (pos) {
         $rootScope.$apply(function () {
-          deferred.resolve(angular.copy(pos))
-        })
+          deferred.resolve(angular.copy(pos));
+        });
       }, function (error) {
         $rootScope.$apply(function () {
-          deferred.reject(error)
-        })
-      },options)
-      return deferred.promise
+          deferred.reject(error);
+        });
+      },options);
+      return deferred.promise;
     }
-  }
+  };
 }]);

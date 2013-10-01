@@ -19,6 +19,7 @@
 @pink: #F2385A;
 @pink-hover: #F75774;
 @choco: #2E2B25;
+@choco-hover: #454037;
 @grey: #666666;
 @light-grey: #999999;
 @superlight-grey: #CCCCCC;
@@ -72,14 +73,14 @@
 }
 
 html, body {
-	background: white;
+	background: #EEEEEE;
 	margin: 0;
 	padding: 0;
 	overflow-x: hidden;
+	height: 100%;
 }
 
 body {
-	background: white;
 	color: @choco;
 	font-family: @freight !important;
 	min-width: 960px;
@@ -464,18 +465,18 @@ footer.footer-app {
 }
 .illu-first-block {
 	position: absolute;
-	z-index: 100;
+	z-index: 22;
 	width: 100%;
 	height: 490px;
 	background: url('../img/illu-first-block.png') no-repeat center 0;
-	top:80px;
+	top:-29px;
 	left: 0;
 	pointer-events:none;
 }
 
 .home-first-block {
 	position: relative;
-	z-index: 1;
+	z-index: 21;
 	height: 460px;
 	width: 100%;
 	margin: 0 auto;
@@ -490,7 +491,7 @@ footer.footer-app {
 	padding: 30px 30px 10px;
 	background: white;
 	.box-shadow(0px, 0px, 8px, rgba(0, 0, 0, .2));
-	top: 180px;
+	top: 50px;
 	right: 50px;
 }
 
@@ -1466,68 +1467,52 @@ footer.footer-app {
 }
 ///////////END JOIN
 ///////////PLANS
+
+#plansContainer{
+	display: block;
+	text-align: center;
+}
 .plans {
 	position: relative;
 	z-index: 10;
-	width: 100%;
-	margin-top: 150px;
-	.free {
-		width: 45%;
-		margin-left: 40px;
-		padding: 20px;
-		float: left;
-		background: white;
-		.box-shadow(0px, 0px, 8px, rgba(0, 0, 0, .2));
+	display: inline-block;
+	margin: 20px 0px 20px 0px;
+	padding: 20px;
+	.box-shadow(0px, 0px, 8px, rgba(0, 0, 0, .2));
 
-		h1 {
-			text-align: center;
-		}
+	background: white;
 
-		.illu-offre-free {
-			width: 115px;
-			height: 112px;
-			background: url('../img/illu-offre-free.png');
-			margin: 0px auto 10px;
-		}
-
-		ul {
-			margin-top: 20px;
-			li {
-				margin: 10px 0px;
-				color: @grey;
-			}
-		}
-
-		.price {
-			display: block;
-			text-align: center;
-			color: @pink;
-			font-size: 24px;
-			font-weight: 100
-		}
+	.separator{
+		top: 180px;
+		display: inline-block;
+		height: 200px;
+		width: 1px;
+		background-color: #cccccc;
+		position: relative;
+		margin: 0px 30px;
 	}
-	.premium {
-		width: 45%;
-		margin-right: 40px;
-		padding: 20px;
-		float: right;
-		background: white;
-		.box-shadow(0px, 0px, 8px, rgba(0, 0, 0, .2));
+
+	.actions{
+		bottom: 20px;
+   	 	left: 18%;
+    	position: absolute;
+	}
+
+	.block {
+		max-width: 400px;
+		display: inline-block;
+		vertical-align: top;
+		height: 700px;
+		position: relative;
 
 		h1 {
 			text-align: center;
 			margin-top:-2px;
 		}
 
-		.illu-offre-premium {
-			width: 124px;
-			height: 117px;
-			background: url('../img/illu-offre-premium.png');
-			margin: 0px auto 10px;
-		}
-
 		ul {
 			margin-top: 20px;
+			text-align: left;
 			li {
 				margin: 10px 0px;
 				color: @grey;
@@ -1539,6 +1524,16 @@ footer.footer-app {
 					margin: 0px!important;
 					line-height: 32px;
 				}
+			}
+
+			&.inline
+			{
+				margin-top: 10px;
+				margin-left: 30px;
+				font-size: 14px;
+				list-style: disc;
+				line-height: 14px;
+				max-width: 90%;
 			}
 		}
 
@@ -1553,9 +1548,40 @@ footer.footer-app {
 				display: block;
 			}
 		}
+	}
+
+	#recom{
+			font-size: 12px;
+			font-style: italic;
+			text-align: left;
+		}
+
+	.basique{
+
+		.illu-offre-basique {
+			width: 112px;
+			height: 115px;
+			background: url('../img/illu-offre-basique.png');
+			margin: 0px auto 10px;
+		}
 
 		a.btn-choose {
 			background: @choco;
+
+			&:hover
+			{
+				background-color: @choco-hover;
+			}
+		}
+
+	}
+	.premium {
+
+		.illu-offre-premium {
+			width: 124px;
+			height: 117px;
+			background: url('../img/illu-offre-premium.png');
+			margin: 0px auto 10px;
 		}
 	}
 }
