@@ -3,40 +3,40 @@
 */
 //(function (google, L) {
 L.Google = L.Class.extend({
-includes: L.Mixin.Events,
-options: {
-minZoom: 0,
-maxZoom: 18,
-tileSize: 256,
-subdomains: 'abc',
-errorTileUrl: '',
-attribution: '',
-opacity: 1,
-continuousWorld: false,
-noWrap: false
-},
-// Possible types: SATELLITE, ROADMAP, HYBRID, TERRAIN
-initialize: function(type, options) {
-L.Util.setOptions(this, options);
-this._ready = google.maps.Map != undefined;
-if (!this._ready) L.Google.asyncWait.push(this);
-this._type = type || 'SATELLITE';
-},
-onAdd: function(map, insertAtTheBottom) {
-this._map = map;
-this._insertAtTheBottom = insertAtTheBottom;
-// create a container div for tiles
-this._initContainer();
-this._initMapObject();
-// set up events
-map.on('viewreset', this._resetCallback, this);
-this._limitedUpdate = L.Util.limitExecByInterval(this._update, 150, this);
-map.on('move', this._update, this);
-//map.on('moveend', this._update, this);
-map._controlCorners['bottomright'].style.marginBottom = "1em";
-this._reset();
-this._update();
-},
+	includes: L.Mixin.Events,
+	options: {
+		minZoom: 0,
+		maxZoom: 18,
+		tileSize: 256,
+		subdomains: 'abc',
+		errorTileUrl: '',
+		attribution: '',
+		opacity: 1,
+		continuousWorld: false,
+		noWrap: false
+	},
+	// Possible types: SATELLITE, ROADMAP, HYBRID, TERRAIN
+	initialize: function(type, options) {
+		L.Util.setOptions(this, options);
+		this._ready = google.maps.Map != undefined;
+		if (!this._ready) L.Google.asyncWait.push(this);
+		this._type = type || 'SATELLITE';
+	},
+	onAdd: function(map, insertAtTheBottom) {
+		this._map = map;
+		this._insertAtTheBottom = insertAtTheBottom;
+		// create a container div for tiles
+		this._initContainer();
+		this._initMapObject();
+		// set up events
+		map.on('viewreset', this._resetCallback, this);
+		this._limitedUpdate = L.Util.limitExecByInterval(this._update, 150, this);
+		map.on('move', this._update, this);
+		//map.on('moveend', this._update, this);
+		map._controlCorners['bottomright'].style.marginBottom = "1em";
+		this._reset();
+		this._update();
+	},
 onRemove: function(map) {
 this._map._container.removeChild(this._container);
 //this._container = null;

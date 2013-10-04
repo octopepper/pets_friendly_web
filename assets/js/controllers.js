@@ -386,6 +386,7 @@ function LoginCtrl($scope, sharedProperties)
 	$scope.login = function(user){
 		if(!user.$valid) return false;
 		sharedProperties.setProperty(user,user);
+		localStorage.setItem('user', JSON.stringify($scope.user));
 	};
 }
 
@@ -407,6 +408,13 @@ function ProCtrl($scope, $http, $route, sharedProperties)
 
 	$scope.update = function(user){
 		angular.extend($scope.user,user);
+		localStorage.setItem('user', JSON.stringify($scope.user));
+		$('#etape2').css('display','block');
+		var height = $(window).height()-$('header').height()-$('#etape2 .form-wrap').height()-parseFloat($('#etape2 .form').css('margin-top'))-parseFloat($('#etape2 .form').css('margin-bottom'));
+        $('.include-map').css('height',height);
+		$('#etape2').animate({left:0},300);
+		$('#etape1').css('position','absolute');
+		$('#etape1').animate({left:'-200%'},300,function(){$(this).css('display','none')});
 	};
 
 }

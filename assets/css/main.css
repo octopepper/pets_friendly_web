@@ -137,6 +137,7 @@ footer.footer-app .corporate li a:hover{color:#f2385a}
 .subscribe .explanations h2{font-size:24px;color:#2e2b25;text-align:center;margin:10px 0}.subscribe .explanations h2 .pink{color:#f2385a}
 .subscribe .explanations ul{padding:0 40px}.subscribe .explanations ul li{clear:both;position:relative;margin:30px 0}.subscribe .explanations ul li .li-number{border-radius:40px;-moz-border-radius:40px;-webkit-border-radius:40px;border:3px solid #f2385a;color:#f2385a;font-size:20px;font-weight:500;width:30px;height:30px;text-align:center;position:absolute;left:0;top:50%;margin-top:-15px}
 .subscribe .explanations ul li .li-content{display:block;padding-left:40px}
+.subscribe #etape2{position:absolute;right:-100%;width:100%;display:none}.subscribe #etape2 .include-map{width:100%;height:400px}.subscribe #etape2 .include-map .map-app{width:100%;height:100%}
 #plansContainer{display:block;text-align:center}
 .plans{position:relative;z-index:10;display:inline-block;margin:20px 0 20px 0;padding:20px;box-shadow:0 0 8px rgba(0,0,0,0.2);-moz-box-shadow:0 0 8px rgba(0,0,0,0.2);-webkit-box-shadow:0 0 8px rgba(0,0,0,0.2);background:#fff}.plans .separator{top:180px;display:inline-block;height:200px;width:1px;background-color:#ccc;position:relative;margin:0 30px}
 .plans .actions{bottom:20px;left:18%;position:absolute}

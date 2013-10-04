@@ -1,90 +1,107 @@
 <div class="subscribe">
-    <div class="form-wrap">
-        <div class="form">
-            <h1>Rejoignez le label professionnel FIDOLIA</h1>
-            <form name="userform" novalidate>
-                <div class="input-container">
-                    <label>Votre Nom<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userNom" ng-model="user.nom" placeholder="Léo"required>
-                </div>
-                <div class="input-container">
-                    <label>Votre email<span class="asterisque">*</span> :</label>
-                    <input type="email" name="userEmail" ng-model="user.email" placeholder="leo@yummypets.com"required>
-                    <div class="error" ng-show="userform.userEmail.$error.email">Cet email n'est pas valide</div>
-                </div>
-                <div class="clear"></div>
-                <div class="input-container">
-                    <label>Nom de l'établissement<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userEtablissement" ng-model="user.etablissement" placeholder="Le bar de Léo"required>
-                </div>
-                <div class="input-container">
-                    <label>Catégorie<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userCategorie" ng-model="user.cat" placeholder="Bar"required>
-                </div>
-                <div class="clear"></div>
-                <div class="input-container">
-                    <label>Adresse<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userAdresse" ng-model="user.adresse" placeholder="22, rue Vital Carles"required>
-                </div>
-                <div class="input-container">
-                    <label>Ville<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userVille" ng-model="user.ville" placeholder="Bordeaux"required>
-                </div>
-                <div class="clear"></div>
-                <div class="input-container">
-                    <label>Code postal<span class="asterisque">*</span> :</label>
-                    <input type="number" name="userCP" ng-model="user.cp" placeholder="33000" maxlength="5" integer required>
-                    <div class="error" ng-show="userform.userCP.$error.integer">Ce code postal n'est pas valide</div>
-                </div>
-                <div class="input-container">
-                    <label>Pays<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userPays" ng-model="user.pays" placeholder="France"required>
-                </div>
-                <div class="clear"></div>
-                <div class="input-container">
-                    <label>Site web<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userWeb" ng-model="user.web" placeholder="www.yummypets.com"required>
-                </div>
-                <div class="input-container">
-                    <label>Possédez/dirigez vous ce lieu ?<span class="asterisque">*</span> :</label>
-                    <input type="text" name="userDirecteur" ng-model="user.directeur" placeholder="OUI/NON"required>
-                </div>
-                <div class="clear"></div>
-                <div class="textarea-container">
-                    <label>Description du lieu<span class="asterisque">*</span> :</label>
-                    <textarea ng-model="user.description" name="userDescription" required>Description du lieu</textarea>
-                </div>
-                <div class="sendbtn-informationsform">
-                    <p>
-                        <strong>* Informations obligatoires</strong>
-                        Toutes les informations recueillies sont soumise à modération de la part de l’équipe Yummypets lipsum dolorem sit amet ...
-                    </p>
-                    <button ng-disabled="userform.$invalid" ng-click="update(user)" class="btn-form-subscribe">Étape suivante</button>
+    <div id="etape1">
+        <div class="form-wrap">
+            <div class="form">
+                <h1>Rejoignez le label professionnel FIDOLIA</h1>
+                <form name="userform" novalidate>
+                    <div class="input-container">
+                        <label>Votre Nom<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userNom" ng-model="user.nom" placeholder="Léo"required>
+                    </div>
+                    <div class="input-container">
+                        <label>Votre email<span class="asterisque">*</span> :</label>
+                        <input type="email" name="userEmail" ng-model="user.email" placeholder="leo@yummypets.com"required>
+                        <div class="error" ng-show="userform.userEmail.$error.email">Cet email n'est pas valide</div>
+                    </div>
                     <div class="clear"></div>
-                </div>
-            </form>
+                    <div class="input-container">
+                        <label>Nom de l'établissement<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userEtablissement" ng-model="user.etablissement" placeholder="Le bar de Léo"required>
+                    </div>
+                    <div class="input-container">
+                        <label>Catégorie<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userCategorie" ng-model="user.cat" placeholder="Bar"required>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="input-container">
+                        <label>Site web<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userWeb" ng-model="user.web" placeholder="www.yummypets.com"required>
+                    </div>
+                    <div class="input-container">
+                        <label>Possédez/dirigez vous ce lieu ?<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userDirecteur" ng-model="user.directeur" placeholder="OUI/NON"required>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="textarea-container">
+                        <label>Description du lieu<span class="asterisque">*</span> :</label>
+                        <textarea ng-model="user.description" name="userDescription" required>Description du lieu</textarea>
+                    </div>
+                    <div class="sendbtn-informationsform">
+                        <p>
+                            <strong>* Informations obligatoires</strong>
+                            Toutes les informations recueillies sont soumise à modération de la part de l’équipe Yummypets lipsum dolorem sit amet ...
+                        </p>
+                        <button ng-disabled="userform.$invalid" ng-click="update(user)" class="btn-form-subscribe">Étape suivante</button>
+                        <div class="clear"></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="explanations">
+            <div class="labelfidolia-explanations"></div>
+            <h2>
+                Quels sont <strong>les avantages</strong><br/> de posséder <strong>le label <span class="pink">FIDOLIA</span></strong> ?
+            </h2>
+            <ul>
+                <li>
+                    <span class="li-number">1</span><span class="li-content">Faites partie du <strong>premier réseau</strong> de lieux publiques/privés <strong>acceptant les animaux de compagnies</strong>.</span>
+                </li>
+                <li>
+                    <span class="li-number">2</span><span class="li-content"><strong>Augmentez votre visibilité</strong> sur internet grâce a notre plateforme en ligne.</span>
+                </li>
+                <li>
+                    <span class="li-number">3</span><span class="li-content"><strong>Profitez</strong> de la communauté propulsée par <span class="green">Yummypets</span> composée de plus de <strong>150 000 membres</strong> !</span>
+                </li>
+                <li>
+                    <span class="li-number">4</span><span class="li-content">Faites partie du <strong>premier réseau</strong> de lieux publiques/privés <strong>acceptant les animaux de compagnies</strong>.</span>
+
+                </li>
+            </ul>
         </div>
     </div>
-    <div class="explanations">
-        <div class="labelfidolia-explanations"></div>
-        <h2>
-            Quels sont <strong>les avantages</strong><br/> de posséder <strong>le label <span class="pink">FIDOLIA</span></strong> ?
-        </h2>
-        <ul>
-            <li>
-                <span class="li-number">1</span><span class="li-content">Faites partie du <strong>premier réseau</strong> de lieux publiques/privés <strong>acceptant les animaux de compagnies</strong>.</span>
-            </li>
-            <li>
-                <span class="li-number">2</span><span class="li-content"><strong>Augmentez votre visibilité</strong> sur internet grâce a notre plateforme en ligne.</span>
-            </li>
-            <li>
-                <span class="li-number">3</span><span class="li-content"><strong>Profitez</strong> de la communauté propulsée par <span class="green">Yummypets</span> composée de plus de <strong>150 000 membres</strong> !</span>
-            </li>
-            <li>
-                <span class="li-number">4</span><span class="li-content">Faites partie du <strong>premier réseau</strong> de lieux publiques/privés <strong>acceptant les animaux de compagnies</strong>.</span>
-
-            </li>
-        </ul>
+    <div id="etape2">
+        <div class="form-wrap">
+            <div class="form">
+                <form name="userform2" novalidate>
+                    <input type="number" ng-model="map.center.lat" step="any">
+                    <div class="input-container">
+                        <label>Adresse<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userAdresse" ng-model="user.adresse" placeholder="22, rue Vital Carles"required>
+                    </div>
+                    <div class="input-container">
+                        <label>Ville<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userVille" ng-model="user.ville" placeholder="Bordeaux"required>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="input-container">
+                        <label>Code postal<span class="asterisque">*</span> :</label>
+                        <input type="number" name="userCP" ng-model="user.cp" placeholder="33000" maxlength="5" integer required>
+                        <div class="error" ng-show="userform2.userCP.$error.integer">Ce code postal n'est pas valide</div>
+                    </div>
+                    <div class="input-container">
+                        <label>Pays<span class="asterisque">*</span> :</label>
+                        <input type="text" name="userPays" ng-model="user.pays" placeholder="France"required>
+                    </div>
+                    <input type="hidden" name="lat">
+                    <input type="hidden" name="long">
+                    <div class="clear"></div>
+                </form>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="include-map">
+            <leaflet class="map-app" markers="map.markers" center="map.center" layers="map.layers" defaults="map.defaults"></leaflet>
+        </div>
     </div>
     <div class="clear"></div>
 </div>
