@@ -1,5 +1,12 @@
-
-<header class="header-app espace-pro">
+<?php 
+    session_start();
+    if(!isset($_SESSION['isLoggedIn']))
+    {
+       // header('HTTP/1.0 401 Unauthorized');
+        //exit();
+    }
+?>
+<header class="espace-pro">
     <div class="ymp-header"></div>
     <div class="sub-header">
         <ul class="left">
@@ -16,4 +23,4 @@
         </ul>
     </div>
 </header>
-<div id="Content"></div>
+<div id="Content" ng-include="module.url"></div>

@@ -1295,17 +1295,17 @@ footer.footer-app {
 }
 ///////////JOIN
 .subscribe {
+	padding-top: 40px;
 	.form-wrap {
 		position: relative;
 		z-index: 10;
 		width: 58%;
 		float: left;
-		margin-top: 110px;
 		pointer-events: none;
 
 		.form {
 			height: 100%;
-			margin: 40px;
+			margin: 0px 40px 40px 40px;
 			padding: 20px;
 			background: white;
 			.box-shadow(0px, 0px, 8px, rgba(0, 0, 0, .2));
@@ -1337,7 +1337,7 @@ footer.footer-app {
 						}
 
 					}
-					input[type=text] {
+					input {
 						width: 100%;
 						background: white;
 						border: 1px solid @superlight-grey;
@@ -1417,6 +1417,10 @@ footer.footer-app {
 							text-decoration: none;
 							background: @pink-hover;
 						}
+						&[disabled]
+						{
+							background-color: #DDDDDD;
+						}
 					}
 				}
 			}
@@ -1430,7 +1434,6 @@ footer.footer-app {
 		width: 40%;
 		opacity: 1;
 		float: right;
-		margin-top: 150px;
 		margin-right: 2%;
 		background: white;
 		.box-shadow(0px, 0px, 8px, rgba(0, 0, 0, .2));

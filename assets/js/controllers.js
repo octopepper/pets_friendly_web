@@ -37,27 +37,6 @@ function MainCtrl($scope, $route, $http, $location)
 	$scope.range = function(n) {
 		return new Array(n);
 	};
-
-	$scope.$on('$locationChangeStart', function(scope, next, current){
-		
-		//var proRegexp = /.*\/pro.*/;
-		/*if(proRegexp.test(next))
-		{
-			$location.path('/login');
-			$http.get('./ajax/is_logged.php').
-			error(function(data, status, headers, config) {
-				if(status == 401)
-				{
-					$location.path('/login');
-				}
-			});
-		}*/
-	});
-
-	$scope.$on('$locationChangeSuccess', function(event) {
-		
-		
-	});
 }
 
 function SearchCtrl($scope, $http, $q, geolocation, $route)
@@ -399,22 +378,35 @@ function SearchCtrl($scope, $http, $q, geolocation, $route)
 	}
 }
 
-function LoginCtrl($scope)
+function LoginCtrl($scope, sharedProperties)
 {
 	$scope.user = {};
 	$scope.error = "";
 
 	$scope.login = function(user){
 		if(!user.$valid) return false;
+		sharedProperties.setProperty(user,user);
 	};
 }
 
-function ProCtrl($scope, $http, $route)
+function ProCtrl($scope, $http, $route, sharedProperties)
 {
+	$scope.user = sharedProperties.getProperty('user') || {};
+	$scope.module = {
+		libelle: "Acceuil",
+		url : 'partials/pro/accueil.html'
+	};
+
 	$scope.load = function(module)
 	{
-		$http.get('./partials/pro/ajax/'+module+'.html').success(function(data){
-			$('#Content').html(data);
-		});
+		$scope.module = {
+			libelle: module,
+			url: "partials/pro/"+module+'.html'
+		};
 	};
+
+	$scope.update = function(user){
+		angular.extend($scope.user,user);
+	};
+
 }

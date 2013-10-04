@@ -1,71 +1,65 @@
-<?php 
-    session_start();
-    if(!isset($_SESSION['isLoggedIn']))
-    {
-        header('HTTP/1.0 401 Unauthorized');
-        exit();
-    }
-?>
 <div class="subscribe">
     <div class="form-wrap">
         <div class="form">
             <h1>Rejoignez le label professionnel FIDOLIA</h1>
-            <form>
+            <form name="userform" novalidate>
                 <div class="input-container">
                     <label>Votre Nom<span class="asterisque">*</span> :</label>
-                    <input type="text" value="Léo">
+                    <input type="text" name="userNom" ng-model="user.nom" placeholder="Léo"required>
                 </div>
                 <div class="input-container">
                     <label>Votre email<span class="asterisque">*</span> :</label>
-                    <input type="text" value="leo@yummypets.com">
+                    <input type="email" name="userEmail" ng-model="user.email" placeholder="leo@yummypets.com"required>
+                    <div class="error" ng-show="userform.userEmail.$error.email">Cet email n'est pas valide</div>
                 </div>
                 <div class="clear"></div>
                 <div class="input-container">
                     <label>Nom de l'établissement<span class="asterisque">*</span> :</label>
-                    <input type="text" value="Le bar de Léo">
+                    <input type="text" name="userEtablissement" ng-model="user.etablissement" placeholder="Le bar de Léo"required>
                 </div>
                 <div class="input-container">
                     <label>Catégorie<span class="asterisque">*</span> :</label>
-                    <input type="text" value="Bar">
+                    <input type="text" name="userCategorie" ng-model="user.cat" placeholder="Bar"required>
                 </div>
                 <div class="clear"></div>
                 <div class="input-container">
                     <label>Adresse<span class="asterisque">*</span> :</label>
-                    <input type="text" value="22, rue Vital Carles">
+                    <input type="text" name="userAdresse" ng-model="user.adresse" placeholder="22, rue Vital Carles"required>
                 </div>
                 <div class="input-container">
                     <label>Ville<span class="asterisque">*</span> :</label>
-                    <input type="text" value="Bordeaux">
+                    <input type="text" name="userVille" ng-model="user.ville" placeholder="Bordeaux"required>
                 </div>
                 <div class="clear"></div>
                 <div class="input-container">
                     <label>Code postal<span class="asterisque">*</span> :</label>
-                    <input type="text" value="33000">
+                    <input type="number" name="userCP" ng-model="user.cp" placeholder="33000" maxlength="5" integer required>
+                    <div class="error" ng-show="userform.userCP.$error.integer">Ce code postal n'est pas valide</div>
                 </div>
                 <div class="input-container">
                     <label>Pays<span class="asterisque">*</span> :</label>
-                    <input type="text" value="France">
+                    <input type="text" name="userPays" ng-model="user.pays" placeholder="France"required>
                 </div>
                 <div class="clear"></div>
                 <div class="input-container">
                     <label>Site web<span class="asterisque">*</span> :</label>
-                    <input type="text" value="www.yummypets.com">
+                    <input type="text" name="userWeb" ng-model="user.web" placeholder="www.yummypets.com"required>
                 </div>
                 <div class="input-container">
                     <label>Possédez/dirigez vous ce lieu ?<span class="asterisque">*</span> :</label>
-                    <input type="text" value="OUI/NON">
+                    <input type="text" name="userDirecteur" ng-model="user.directeur" placeholder="OUI/NON"required>
                 </div>
                 <div class="clear"></div>
                 <div class="textarea-container">
                     <label>Description du lieu<span class="asterisque">*</span> :</label>
-                    <textarea>Description du lieu</textarea>
+                    <textarea ng-model="user.description" name="userDescription" required>Description du lieu</textarea>
                 </div>
                 <div class="sendbtn-informationsform">
                     <p>
                         <strong>* Informations obligatoires</strong>
                         Toutes les informations recueillies sont soumise à modération de la part de l’équipe Yummypets lipsum dolorem sit amet ...
                     </p>
-                    <input type="button" value="Étape suivante" class="btn-form-subscribe">
+                    <button ng-disabled="userform.$invalid" ng-click="update(user)" class="btn-form-subscribe">Étape suivante</button>
                     <div class="clear"></div>
                 </div>
             </form>

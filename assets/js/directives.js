@@ -321,3 +321,4 @@ angular.module('google-maps')
             }
         };
     }]);
+

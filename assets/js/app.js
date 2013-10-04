@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on filters, and services
-var app = angular.module('PetsFriendly', ["leaflet-directive", "ngGeolocation"]).
+var app = angular.module('PetsFriendly', ["PetsFriendly.services","leaflet-directive", "ngGeolocation"]).
 	config(['$routeProvider', '$locationProvider', '$httpProvider', function($routeProvider, $locationProvider,$httpProvider) {
 		//$locationProvider.html5Mode(true);
 		$routeProvider.
@@ -13,15 +13,8 @@ var app = angular.module('PetsFriendly', ["leaflet-directive", "ngGeolocation"])
 				controller: 'SearchCtrl'
 			}).
 			when('/pro', {
-				templateUrl: 'partials/pro/accueil.php',
+				templateUrl: 'partials/pro/index.php',
 				controller: 'ProCtrl'
-			}).
-			when('/pro/accueil', {
-				templateUrl: 'partials/pro/accueil.php',
-				controller: 'ProCtrl'
-			}).
-			when('/pro/plans', {
-				templateUrl: 'partials/pro/plans.php',
 			}).
 			when('/login', {
 				templateUrl: 'partials/login.html',
@@ -50,6 +43,18 @@ app.factory('myHttpInterceptor', function($q, $location) {
 	}
 });
 
+angular.module('PetsFriendly.services', [])
+		.service('sharedProperties', function () {
+				this.setProperty = function(key,value)
+				{
+					this[key] = value;
+				};
+
+				this.getProperty = function(key){
+					return this[key];
+				};
+		});
+
 angular.module('ngGeolocation',[])
 	.constant('options',{})
 	.factory('geolocation',
@@ -71,3 +76,21 @@ function ($q , $rootScope , options){
 		}
 	};
 }]);
+
+var INTEGER_REGEXP = /^\-?\d*$/;
+app.directive('integer', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function(viewValue) {
+                if (INTEGER_REGEXP.test(viewValue)) {
+                    ctrl.$setValidity('integer', true);
+                    return viewValue;
+                } else {
+                    ctrl.$setValidity('integer', false);
+                    return undefined;
+                }
+            });
+        }
+    };
+});
