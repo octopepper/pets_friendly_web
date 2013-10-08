@@ -1,5 +1,10 @@
 function MainCtrl($scope, $route, $http, $location)
 {
+	$scope.CustomCenter = {
+		lat: 44.849541,
+		lng: -0.579643
+	};
+
 	angular.extend($scope, {
 		map: {
 			defaults:{
@@ -7,8 +12,8 @@ function MainCtrl($scope, $route, $http, $location)
 				minZoom: 9,
 			},
 			center: {
-				lat: 44.849541,
-				lng: -0.579643,
+				lat: $scope.CustomCenter.lat,
+				lng: $scope.CustomCenter.lng,
 				zoom: 12
 			},
 			layers: {
@@ -21,7 +26,8 @@ function MainCtrl($scope, $route, $http, $location)
 				}
 			},
 			markers : [],
-		}
+		},
+		leafletMap : null,
 	});
 
 	$scope.go = function(){
@@ -390,13 +396,16 @@ function LoginCtrl($scope, sharedProperties)
 	};
 }
 
-function ProCtrl($scope, $http, $route, sharedProperties)
+function ProCtrl($scope, $http, $route, $rootScope, $compile, sharedProperties)
 {
+
 	$scope.user = sharedProperties.getProperty('user') || {};
 	$scope.module = {
 		libelle: "Acceuil",
 		url : 'partials/pro/accueil.html'
 	};
+
+
 
 	$scope.load = function(module)
 	{
@@ -414,7 +423,18 @@ function ProCtrl($scope, $http, $route, sharedProperties)
         $('.include-map').css('height',height);
 		$('#etape2').animate({left:0},300);
 		$('#etape1').css('position','absolute');
-		$('#etape1').animate({left:'-200%'},300,function(){$(this).css('display','none')});
+		$('#etape1').animate({left:'-200%'},300,function(){
+			$(this).css('display','none');
+			var map = L.map('map').setView([$scope.CustomCenter.lat, $scope.CustomCenter.lng], 12);
+			var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+			var options = {
+				type:"ROADMAP",
+				maxZoom: 15,
+				minZoom: 9,
+			};
+			var ggl = new L.Google(options);
+			map.addLayer(ggl);
+		});
 	};
 
 }

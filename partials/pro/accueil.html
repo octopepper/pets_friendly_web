@@ -73,14 +73,13 @@
         <div class="form-wrap">
             <div class="form">
                 <form name="userform2" novalidate>
-                    <input type="number" ng-model="map.center.lat" step="any">
                     <div class="input-container">
                         <label>Adresse<span class="asterisque">*</span> :</label>
-                        <input type="text" name="userAdresse" ng-model="user.adresse" placeholder="22, rue Vital Carles"required>
+                        <input type="text" id="userAdresse" name="userAdresse" ng-model="user.adresse" placeholder="22, rue Vital Carles"required>
                     </div>
                     <div class="input-container">
                         <label>Ville<span class="asterisque">*</span> :</label>
-                        <input type="text" name="userVille" ng-model="user.ville" placeholder="Bordeaux"required>
+                        <input type="text" id="userVille" name="userVille" ng-model="user.ville" placeholder="Bordeaux"required>
                     </div>
                     <div class="clear"></div>
                     <div class="input-container">
@@ -90,7 +89,7 @@
                     </div>
                     <div class="input-container">
                         <label>Pays<span class="asterisque">*</span> :</label>
-                        <input type="text" name="userPays" ng-model="user.pays" placeholder="France"required>
+                        <input type="text"id="userPays" name="userPays" ng-model="user.pays" placeholder="France"required>
                     </div>
                     <input type="hidden" name="lat">
                     <input type="hidden" name="long">
@@ -100,8 +99,27 @@
         </div>
         <div class="clear"></div>
         <div class="include-map">
-            <leaflet class="map-app" markers="map.markers" center="map.center" layers="map.layers" defaults="map.defaults"></leaflet>
+            <div class="map-app" id="map"></div>
         </div>
     </div>
     <div class="clear"></div>
 </div>
+
+<script>
+    var options = {types: ['(cities)'],componentRestrictions: {country: "fr"}};
+    var input = document.getElementById('userVille');
+    var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+    /*options = {types: ['(country)']};
+    input = document.getElementById('userPays');
+    autocomplete = new google.maps.places.Autocomplete(input,options);*/
+
+    options = {types: ['geocode'],componentRestrictions: {country: "fr"}};
+    input = document.getElementById('userAdresse');
+    autocomplete = new google.maps.places.Autocomplete(input,options);
+
+    google.maps.event.addListener(autocomplete, 'place_changed', function() {
+          var place = autocomplete.getPlace();
+          place.geometry.location.lat()
+      });
+</script>
