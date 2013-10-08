@@ -399,13 +399,14 @@ function LoginCtrl($scope, sharedProperties)
 function ProCtrl($scope, $http, $route, $rootScope, $compile, sharedProperties)
 {
 
+	var markersArray = [];
 	$scope.user = sharedProperties.getProperty('user') || {};
 	$scope.module = {
 		libelle: "Acceuil",
 		url : 'partials/pro/accueil.html'
 	};
 
-
+	$scope.proMap = null;
 
 	$scope.load = function(module)
 	{
@@ -425,7 +426,7 @@ function ProCtrl($scope, $http, $route, $rootScope, $compile, sharedProperties)
 		$('#etape1').css('position','absolute');
 		$('#etape1').animate({left:'-200%'},300,function(){
 			$(this).css('display','none');
-			var map = L.map('map').setView([$scope.CustomCenter.lat, $scope.CustomCenter.lng], 12);
+			$scope.proMap = L.map('map').setView([$scope.CustomCenter.lat, $scope.CustomCenter.lng], 12);
 			var osm = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
 			var options = {
 				type:"ROADMAP",
@@ -433,7 +434,60 @@ function ProCtrl($scope, $http, $route, $rootScope, $compile, sharedProperties)
 				minZoom: 9,
 			};
 			var ggl = new L.Google(options);
-			map.addLayer(ggl);
+			$scope.proMap.addLayer(ggl);
+
+			var options				= {types: ['(cities)'],componentRestrictions: {country: "fr"}},
+				inputVille			= document.getElementById('userVille'),
+				autocompleteVille	= new google.maps.places.Autocomplete(inputVille,options);
+
+			/*options = {types: ['(country)']};
+			input = document.getElementById('userPays');
+			autocomplete = new google.maps.places.Autocomplete(input,options);*/
+
+			options			= {types: ['geocode'],componentRestrictions: {country: "fr"}};
+			var inputAdress			= document.getElementById('userAdresse'),
+				autocompleteAdress	= new google.maps.places.Autocomplete(inputAdress,options);
+
+			google.maps.event.addListener(autocompleteVille, 'place_changed', function() {
+				var place	= autocompleteVille.getPlace();
+				for(var component in place.address_components)
+				{
+					var type = place.address_components[component].types[0];
+					if(type == "locality")
+					{
+						$scope.$apply(function(){
+							$scope.user.ville = place.address_components[component].long_name;
+						});
+					}
+				}
+			});
+			google.maps.event.addListener(autocompleteAdress, 'place_changed', function() {
+				for(var marker in markersArray)
+				{
+					$scope.proMap.removeLayer(markersArray[marker]);
+				}
+				var place	= autocompleteAdress.getPlace(),
+					lat		= place.geometry.location.lat(),
+					lng		= place.geometry.location.lng(),
+					marker	= L.marker([lat, lng]).addTo($scope.proMap);
+
+				markersArray.push(marker);
+				$scope.proMap.setView([lat, lng], 12);
+
+				var inputValue = "";
+				for(var component in place.address_components)
+				{
+					var type = place.address_components[component].types[0];
+					if(type == "route" || type == "street_number")
+					{
+						if(inputValue != "") inputValue += " ";
+						inputValue += place.address_components[component].long_name;
+					}
+				}
+				$scope.$apply(function(){
+					$scope.user.adresse = inputValue;
+				});
+			});
 		});
 	};
 

@@ -94,6 +94,9 @@
                     <input type="hidden" name="lat">
                     <input type="hidden" name="long">
                     <div class="clear"></div>
+                    <div class="sendbtn-informationsform">
+                        <button ng-disabled="userform2.$invalid" ng-click="" class="btn-form-subscribe">Valider</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -106,20 +109,5 @@
 </div>
 
 <script>
-    var options = {types: ['(cities)'],componentRestrictions: {country: "fr"}};
-    var input = document.getElementById('userVille');
-    var autocomplete = new google.maps.places.Autocomplete(input,options);
-
-    /*options = {types: ['(country)']};
-    input = document.getElementById('userPays');
-    autocomplete = new google.maps.places.Autocomplete(input,options);*/
-
-    options = {types: ['geocode'],componentRestrictions: {country: "fr"}};
-    input = document.getElementById('userAdresse');
-    autocomplete = new google.maps.places.Autocomplete(input,options);
-
-    google.maps.event.addListener(autocomplete, 'place_changed', function() {
-          var place = autocomplete.getPlace();
-          place.geometry.location.lat()
-      });
+    
 </script>
